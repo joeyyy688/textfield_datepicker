@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:textfield_datepicker/src/utilities/utilities.dart';
 
-class DatePicker {
+class DateAndTimePicker {
   DateTime? selectedDate;
   late DateTime wantedDate = DateTime.now();
-  String? date;
+  String? dateAndTime;
   DateTime? startDateFromProvider;
 
   Future selectDate({
@@ -17,24 +18,24 @@ class DatePicker {
     required DateTime cupertinoDatePickerMaximumDate,
     required DateTime cupertinoDatePickerMinimumDate,
     Color? cupertinoDatePickerBackgroundColor,
-    bool? cupertinoDatePickerUse24hFormat,
-    int? cupertinoDatePickerminuteInterval,
-    int? cupertinoDatePickerMinimum,
+    //bool? cupertinoDatePickerUse24hFormat,
+    //int? cupertinoDatePickerminuteInterval,
+    int cupertinoDatePickerMinimumYear = 1,
     int? cupertinoDatePickerMaximumYear,
     Key? cupertinoDatePickerKey,
-    Color? cupertinoModalsheetColor,
     Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
     required DatePickerEntryMode materialDatePickerInitialEntryMode,
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
+    bool cupertinoDatePickerUse24hFormat = false,
+    int cupertinoDatePickerminuteInterval = 0,
   }) async {
     final ThemeData theme = Theme.of(context);
     switch (theme.platform) {
-      case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
-        return buildMaterialDatePicker(
+        return buildMaterialDateAndTimePicker(
             context,
             materialDatePickerInitialDate,
             materialDatePickerFirstDate,
@@ -44,27 +45,27 @@ class DatePicker {
             materialDatePickerInitialEntryMode,
             materialDatePickerLocale,
             materialDatePickerSelectableDayPredicate);
+      case TargetPlatform.android:
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        return buildCupertinoDatePicker(
+        return buildCupertinoDateAndTimePicker(
           context: context,
           preferredDateFormat: preferredDateFormat,
           cupertinoDatePickerMaximumDate: cupertinoDatePickerMaximumDate,
           cupertinoDatePickerMinimumDate: cupertinoDatePickerMinimumDate,
           cupertinoDatePickerBackgroundColor:
               cupertinoDatePickerBackgroundColor,
-          cupertinoDatePickerUse24hFormat: cupertinoDatePickerUse24hFormat,
-          cupertinoDatePickerminuteInterval: cupertinoDatePickerminuteInterval,
-          cupertinoModalsheetColor: cupertinoModalsheetColor,
-          cupertinoDatePickerMinimum: cupertinoDatePickerMinimum,
+          cupertinoDatePickerMinimumYear: cupertinoDatePickerMinimumYear,
           cupertinoDatePickerMaximumYear: cupertinoDatePickerMaximumYear,
           key: cupertinoDatePickerKey,
+          cupertinoDatePickerUse24hFormat: cupertinoDatePickerUse24hFormat,
+          cupertinoDatePickerminuteInterval: cupertinoDatePickerminuteInterval,
         );
     }
   }
 
   /// This builds material date picker in Android
-  Future buildMaterialDatePicker(
+  Future buildMaterialDateAndTimePicker(
     BuildContext context,
     DateTime materialDatePickerInitialDate,
     DateTime materialDatePickerFirstDate,
@@ -90,71 +91,64 @@ class DatePicker {
     if (picked == null) {
       return;
     }
-    date = preferredDateFormat
+    dateAndTime = preferredDateFormat
         .format(DateTime.parse(selectedDate.toString().split('T').first));
 
-    if (date.runtimeType != String) {
-      date = "";
+    if (dateAndTime.runtimeType != String) {
+      dateAndTime = "";
     }
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
-    return date;
+    return dateAndTime;
   }
 
   /// This builds cupertino date picker in iOS
-  Future buildCupertinoDatePicker({
+  Future<String?> buildCupertinoDateAndTimePicker({
     required BuildContext context,
     Key? key,
     Color? cupertinoDatePickerBackgroundColor,
     required DateTime? cupertinoDatePickerMaximumDate,
     required DateTime? cupertinoDatePickerMinimumDate,
     required DateFormat preferredDateFormat,
-    int? cupertinoDatePickerminuteInterval,
-    bool? cupertinoDatePickerUse24hFormat,
-    int? cupertinoDatePickerMinimum,
+    int cupertinoDatePickerMinimumYear = 1,
     int? cupertinoDatePickerMaximumYear,
-    Color? cupertinoModalsheetColor,
-  }) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext builder) {
-        return Container(
-          height: MediaQuery.of(context).copyWith().size.height / 3,
-          color: cupertinoModalsheetColor == null
-              ? Colors.white
-              : cupertinoModalsheetColor,
-          child: CupertinoDatePicker(
-            backgroundColor: cupertinoDatePickerBackgroundColor,
-            key: key,
-            maximumDate: cupertinoDatePickerMaximumDate,
-            minimumDate: cupertinoDatePickerMinimumDate,
-            mode: CupertinoDatePickerMode.date,
-            minuteInterval: cupertinoDatePickerminuteInterval == null
-                ? 1
-                : cupertinoDatePickerminuteInterval,
-            use24hFormat: cupertinoDatePickerUse24hFormat == null
-                ? false
-                : cupertinoDatePickerUse24hFormat,
-            onDateTimeChanged: (picked) {
-              if (picked != selectedDate) selectedDate = picked;
+    int cupertinoDatePickerminuteInterval = 0,
+    bool cupertinoDatePickerUse24hFormat = false,
+  }) async {
+    String? picked = await Utils().showSheet(
+      context,
+      child: Container(
+        height: MediaQuery.of(context).copyWith().size.height / 3,
+        child: CupertinoDatePicker(
+          backgroundColor: cupertinoDatePickerBackgroundColor,
+          key: key,
+          maximumDate: cupertinoDatePickerMaximumDate,
+          minimumDate: cupertinoDatePickerMinimumDate,
+          mode: CupertinoDatePickerMode.dateAndTime,
+          minuteInterval: cupertinoDatePickerminuteInterval,
+          use24hFormat: cupertinoDatePickerUse24hFormat,
+          onDateTimeChanged: (picked) {
+            if (picked != selectedDate) selectedDate = picked;
 
-              date = preferredDateFormat.format(
-                  DateTime.parse(selectedDate.toString().split('T').first));
+            dateAndTime = preferredDateFormat.format(
+                DateTime.parse(selectedDate.toString().split('T').first));
 
-              if (date.runtimeType != String) {
-                date = "";
-              }
-            },
-            initialDateTime: DateTime.now(),
-            minimumYear: cupertinoDatePickerMinimum == null
-                ? 1
-                : cupertinoDatePickerMinimum,
-            maximumYear: cupertinoDatePickerMaximumYear,
-          ),
-        );
+            if (dateAndTime.runtimeType != String) {
+              dateAndTime = "";
+            }
+          },
+          initialDateTime: DateTime.now(),
+          minimumYear: cupertinoDatePickerMinimumYear,
+          maximumYear: cupertinoDatePickerMaximumYear,
+        ),
+      ),
+      onClicked: (date) {
+        Navigator.of(context).pop();
+        print(date);
+        return date;
       },
-    ).whenComplete(() {
-      return date;
-    });
+      value: dateAndTime,
+    );
+    return dateAndTime;
   }
 }

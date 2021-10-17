@@ -1,8 +1,19 @@
+library textfield_datepicker;
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:textfield_datepicker/src/datePicker.dart';
 
+import 'package:textfield_datepicker/src/widget/datePicker.dart';
+
+//A widget(TextfieldDatePicker) that gives you access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
+//
+//Date picked is shown in a Material [TextFormField].
+//
+//This widget gives you access to most [TextFormField] elements allowing you to design your textfield based on your preference
+//
 class TextfieldDatePicker extends StatefulWidget {
+  //-----------------------Starting from this section...
+  //
   final TextEditingController textfieldDatePickerController;
   final Iterable<String>? autofillHints;
   final AutovalidateMode? autovalidateMode;
@@ -26,23 +37,77 @@ class TextfieldDatePicker extends StatefulWidget {
   final TextDirection? textDirection;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
+  //
+  //-----------------------------------------  ...to the elements on top of this section contains [TextFormField] elements which should be quite familiar to you (if not visit https://api.flutter.dev/flutter/material/TextFormField-class.html for more info)
+
+  // By default the [materialDatePickerInitialEntryMode]  is [DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar]
+  //
+  //In [calendar] mode, a calendar grid is displayed and the user taps the day they wish to select.
+  //
+  //In [input] mode a TextField] is displayed and the user types in the date they wish to select.
+  //
+  //[calendarOnly] and [inputOnly] are variants of the above that don't allow the user to change to the mode.
+  //
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
-  final DateTime materialDatePickerLastDate;
+
+  //The [materialDatePickerFirstDate] is the earliest allowable date.
+  //
   final DateTime materialDatePickerFirstDate;
+
+  // When the date picker is first displayed, it will show the month of [materialDatePickerInitialDate], with [materialDatePickerInitialDate] selected.
+  //
   final DateTime materialDatePickerInitialDate;
+
+  //The [materialDatePickerLastDate] is the latest allowable date.
+  //
+  //[materialDatePickerInitialDate] must either fall between these dates([materialDatePickerFirstDate] and [materialDatePickerLastDate]), or be equal to one of them.
+  //For each of these DateTime parameters, only their dates are considered.
+  //Their time fields are ignored. They must all be non-null.
+  //
+  final DateTime materialDatePickerLastDate;
+
+  //[preferredDateFormat] is for formatting and parsing dates in a locale-sensitive manner.
+  // For more info. on DateFormat visit -- https://api.flutter.dev/flutter/intl/DateFormat-class.html
+  //
   final intl.DateFormat preferredDateFormat;
+
+  //The builder parameter can be used to wrap the dialog widget to add inherited widgets like Theme.(for more info. on applying theme visit -- https://api.flutter.dev/flutter/material/Theme-class.html)
+  //
   final Widget Function(BuildContext, Widget?)? materialDatePickerBuilder;
+
+  //An optional locale argument can be used to set the locale for the date picker. It defaults to the ambient locale provided by Localizations. visit -- https://api.flutter.dev/flutter/widgets/Localizations-class.html for more info. on localization
+  //
   final Locale? materialDatePickerLocale;
+
+  //An optional [materialDatePickerSelectableDayPredicate] function can be passed in to only allow certain days for selection.
+  //
+  //If provided, only the days that [materialDatePickerSelectableDayPredicate] returns true for will be selectable.
+  //
+  //For example, this can be used to only allow weekdays for selection. If provided, it must return true for [materialDatePickerInitialDate].
+  //
   final bool Function(DateTime)? materialDatePickerSelectableDayPredicate;
+
+  //[cupertinoDatePickerMaximumDate] The maximum selectable date that the picker can settle on.
+  //
+  //When non-null, the user can still scroll the picker to [DateTime]s later than [cupertinoDatePickerMaximumDate], but the [onDateTimeChanged] will not be called on these [DateTime]s.
+  //
+  //Once let go, the picker will scroll back to [cupertinoDatePickerMaximumDate].
+  //
+  //Typically [cupertinoDatePickerMaximumDate] needs to be set to a [DateTime] that is on the same date as [initialDateTime].
+  //
+  //Defaults to null. When set to null, the picker does not impose a limit on the latest [DateTime] the user can select.
+  //
   final DateTime cupertinoDatePickerMaximumDate;
   final DateTime cupertinoDatePickerMinimumDate;
-  final int? cupertinoDatePickerMinimum;
+  final int cupertinoDatePickerMinimumYear;
+
+  //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
+  //
+  // Defaults to null, which disables background painting entirely.
   final Color? cupertinoDatePickerBackgroundColor;
   final Key? cupertinoDatePickerKey;
   final int? cupertinoDatePickerMaximumYear;
-  final bool? cupertinoDatePickerUse24hFormat;
-  final int? cupertinoDatePickerminuteInterval;
-  final Color? cupertinoModalsheetColor;
+  final DateTime? cupertinoDateInitialDateTime;
 
   TextfieldDatePicker({
     Key? key,
@@ -70,8 +135,8 @@ class TextfieldDatePicker extends StatefulWidget {
     this.textInputAction,
     this.focusNode,
     this.materialDatePickerInitialEntryMode = DatePickerEntryMode.calendar,
-    required this.materialDatePickerLastDate,
     required this.materialDatePickerFirstDate,
+    required this.materialDatePickerLastDate,
     required this.materialDatePickerInitialDate,
     required this.preferredDateFormat,
     this.materialDatePickerBuilder,
@@ -79,14 +144,13 @@ class TextfieldDatePicker extends StatefulWidget {
     this.materialDatePickerSelectableDayPredicate,
     required this.cupertinoDatePickerMaximumDate,
     required this.cupertinoDatePickerMinimumDate,
-    required this.cupertinoDatePickerMinimum,
+    this.cupertinoDatePickerMinimumYear = 1,
     required this.cupertinoDatePickerBackgroundColor,
     this.cupertinoDatePickerKey,
     required this.cupertinoDatePickerMaximumYear,
-    required this.cupertinoDatePickerUse24hFormat,
-    this.cupertinoDatePickerminuteInterval,
-    required this.cupertinoModalsheetColor,
-  }) : super(key: key);
+    required this.cupertinoDateInitialDateTime,
+  })  : assert(cupertinoDatePickerMinimumYear != 0),
+        super(key: key);
 
   @override
   _TextfieldDatePickerState createState() => _TextfieldDatePickerState();
@@ -102,30 +166,31 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
       onTap: () {
         DatePicker()
             .selectDate(
-          context: context,
-          materialDatePickerLastDate: widget.materialDatePickerLastDate,
-          materialDatePickerInitialEntryMode:
-              widget.materialDatePickerInitialEntryMode,
-          materialDatePickerFirstDate: widget.materialDatePickerFirstDate,
-          materialDatePickerInitialDate: widget.materialDatePickerInitialDate,
-          preferredDateFormat: widget.preferredDateFormat,
-          materialDatePickerBuilder: widget.materialDatePickerBuilder,
-          materialDatePickerLocale: widget.materialDatePickerLocale,
-          materialDatePickerSelectableDayPredicate:
-              widget.materialDatePickerSelectableDayPredicate,
-          cupertinoDatePickerMaximumDate: widget.cupertinoDatePickerMaximumDate,
-          cupertinoDatePickerMinimumDate: widget.cupertinoDatePickerMinimumDate,
-          cupertinoDatePickerMinimum: widget.cupertinoDatePickerMinimum,
-          cupertinoDatePickerBackgroundColor:
-              widget.cupertinoDatePickerBackgroundColor,
-          cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
-          cupertinoDatePickerMaximumYear: widget.cupertinoDatePickerMaximumYear,
-          cupertinoDatePickerUse24hFormat:
-              widget.cupertinoDatePickerUse24hFormat,
-          cupertinoDatePickerminuteInterval:
-              widget.cupertinoDatePickerminuteInterval,
-          cupertinoModalsheetColor: widget.cupertinoModalsheetColor,
-        )
+                context: context,
+                materialDatePickerLastDate: widget.materialDatePickerLastDate,
+                materialDatePickerInitialEntryMode:
+                    widget.materialDatePickerInitialEntryMode,
+                materialDatePickerFirstDate: widget.materialDatePickerFirstDate,
+                materialDatePickerInitialDate:
+                    widget.materialDatePickerInitialDate,
+                preferredDateFormat: widget.preferredDateFormat,
+                materialDatePickerBuilder: widget.materialDatePickerBuilder,
+                materialDatePickerLocale: widget.materialDatePickerLocale,
+                materialDatePickerSelectableDayPredicate:
+                    widget.materialDatePickerSelectableDayPredicate,
+                cupertinoDatePickerMaximumDate:
+                    widget.cupertinoDatePickerMaximumDate,
+                cupertinoDatePickerMinimumDate:
+                    widget.cupertinoDatePickerMinimumDate,
+                cupertinoDatePickerMinimumYear:
+                    widget.cupertinoDatePickerMinimumYear,
+                cupertinoDatePickerBackgroundColor:
+                    widget.cupertinoDatePickerBackgroundColor,
+                cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
+                cupertinoDatePickerMaximumYear:
+                    widget.cupertinoDatePickerMaximumYear,
+                cupertinoDateInitialDateTime:
+                    widget.cupertinoDateInitialDateTime)
             .then((value) {
           if (value == null) {
             return;

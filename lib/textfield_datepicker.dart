@@ -1,7 +1,3 @@
 library textfield_datepicker;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/textfield_datePicker.dart';
