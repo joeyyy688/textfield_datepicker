@@ -86,6 +86,7 @@ class DateAndTimePicker {
       firstDate: materialDatePickerFirstDate,
       lastDate: materialDatePickerLastDate,
     );
+
     if (picked != null && picked != selectedDate) selectedDate = picked;
 
     if (picked == null) {
@@ -99,6 +100,16 @@ class DateAndTimePicker {
     }
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
+
+    // TimeOfDay timePicked = await showTimePicker(
+    //   context: ,
+    //   initialTime: ,
+    //   builder: ,
+    //   initialEntryMode: ,
+    //   hourLabelText: ,
+    //   minuteLabelText:
+    // );
+
     return dateAndTime;
   }
 
@@ -115,6 +126,7 @@ class DateAndTimePicker {
     int cupertinoDatePickerminuteInterval = 0,
     bool cupertinoDatePickerUse24hFormat = false,
   }) async {
+    // ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
       child: Container(

@@ -1,21 +1,19 @@
 // ignore_for_file: file_names
 import 'package:example/mediaQuery/size_helpers.dart';
-import 'package:example/screens/textfieldDatePicker2.dart';
 import 'package:example/widgets/labelText.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_datepicker/textfield_datepicker.dart';
 import 'package:intl/intl.dart';
 
-class TextFieldDatePickerDemo extends StatefulWidget {
-  static const routeName = '/textFieldDatePickerDemo';
-  const TextFieldDatePickerDemo({Key? key}) : super(key: key);
+class TextFieldDatePicker2 extends StatefulWidget {
+  static const routeName = 'textFieldDatePicker2';
+  const TextFieldDatePicker2({Key? key}) : super(key: key);
 
   @override
-  _TextFieldDatePickerDemoState createState() =>
-      _TextFieldDatePickerDemoState();
+  _TextFieldDatePicker2State createState() => _TextFieldDatePicker2State();
 }
 
-class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
+class _TextFieldDatePicker2State extends State<TextFieldDatePicker2> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'TextField Date Picker Example 1',
+          'TextField Date Picker Example 2',
           style: TextStyle(
             fontSize: displayWidth(context) * 0.060,
             color: Colors.black,
@@ -48,8 +46,8 @@ class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
               cupertinoDatePickerBackgroundColor: Colors.white,
               cupertinoDatePickerMaximumDate: DateTime(2099),
               cupertinoDatePickerMaximumYear: 2099,
-              cupertinoDatePickerMinimumYear: 1990,
-              cupertinoDatePickerMinimumDate: DateTime(1990),
+              cupertinoDatePickerMinimumYear: DateTime.now().year,
+              cupertinoDatePickerMinimumDate: DateTime.now(),
               cupertinoDateInitialDateTime: DateTime.now(),
               materialDatePickerFirstDate: DateTime.now(),
               materialDatePickerInitialDate: DateTime.now(),
@@ -88,15 +86,6 @@ class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            ElevatedButton(
-              child: const Text('Next Page'),
-              onPressed: () {
-                Navigator.of(context).pushNamed(TextFieldDatePicker2.routeName);
-              },
             )
           ],
         ),

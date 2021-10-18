@@ -29,6 +29,7 @@ class DatePicker {
   }) async {
     final ThemeData theme = Theme.of(context);
     switch (theme.platform) {
+      case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
@@ -42,7 +43,6 @@ class DatePicker {
             materialDatePickerInitialEntryMode,
             materialDatePickerLocale,
             materialDatePickerSelectableDayPredicate);
-      case TargetPlatform.android:
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
         return buildCupertinoDatePicker(

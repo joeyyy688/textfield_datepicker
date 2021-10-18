@@ -1,4 +1,5 @@
 import 'package:example/screens/textfieldDatePicker.dart';
+import 'package:example/screens/textfieldDatePicker2.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       routes: {
         TextFieldDatePickerDemo.routeName: (context) =>
             const TextFieldDatePickerDemo(),
+        TextFieldDatePicker2.routeName: (context) =>
+            const TextFieldDatePicker2()
       },
     );
   }
