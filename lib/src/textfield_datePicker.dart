@@ -5,11 +5,11 @@ import 'package:intl/intl.dart' as intl;
 
 import 'package:textfield_datepicker/src/widget/datePicker.dart';
 
-//A widget(TextfieldDatePicker) that gives you access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
+//A widget(TextfieldDatePicker) that gives access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
 //
 //Date picked is shown in a Material [TextFormField].
 //
-//This widget gives you access to most [TextFormField] elements allowing you to design your textfield based on your preference
+//This widget gives access to most [TextFormField] elements allowing you to design your textfield based on your preference
 //
 class TextfieldDatePicker extends StatefulWidget {
   //-----------------------Starting from this section...
@@ -93,21 +93,45 @@ class TextfieldDatePicker extends StatefulWidget {
   //
   //Once let go, the picker will scroll back to [cupertinoDatePickerMaximumDate].
   //
-  //Typically [cupertinoDatePickerMaximumDate] needs to be set to a [DateTime] that is on the same date as [initialDateTime].
+  //Typically [cupertinoDatePickerMaximumDate] needs to be set to a [DateTime] that is on the same date as [cupertinoDateInitialDateTime].
   //
   //Defaults to null. When set to null, the picker does not impose a limit on the latest [DateTime] the user can select.
   //
   final DateTime cupertinoDatePickerMaximumDate;
+
+  //The minimum selectable date that the picker can settle on.
+  //
   final DateTime cupertinoDatePickerMinimumDate;
+
+  //Minimum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Defaults to 1 and must not be null.
+  //
   final int cupertinoDatePickerMinimumYear;
+
+  //Maximum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Null if there's no limit.
+  final int? cupertinoDatePickerMaximumYear;
 
   //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
   //
   // Defaults to null, which disables background painting entirely.
   final Color? cupertinoDatePickerBackgroundColor;
+
+  //A [cupertinoDatePickerKey] is an identifier for [CupertinoDatePicker Widgets, Elements, and SemanticsNodes].
+  //
   final Key? cupertinoDatePickerKey;
-  final int? cupertinoDatePickerMaximumYear;
+
+  //The [cupertinoDateInitialDateTime] initial date and/or time of the picker.
+  //Defaults to the present date and time and must not be null.
+  //The present must conform to the intervals set in [cupertinoDatePickerMinimumDate], [cupertinoDatePickerMaximumDate], [cupertinoDatePickerMinimumYear], and [cupertinoDatePickerMaximumYear].
+  //
   final DateTime? cupertinoDateInitialDateTime;
+
+  //[textfieldDatePickerWidth] gives you the option to adjust the width of the [TextfieldDatePicker]
+  //[textfieldDatePickerWidth] defaults to 84, which is 84 percent of the available screen width
+  //
+  final num textfieldDatePickerWidth;
+
+  //[textfieldDatePickerMargin]
+  final EdgeInsetsGeometry? textfieldDatePickerMargin;
 
   TextfieldDatePicker({
     Key? key,
@@ -149,6 +173,9 @@ class TextfieldDatePicker extends StatefulWidget {
     this.cupertinoDatePickerKey,
     required this.cupertinoDatePickerMaximumYear,
     required this.cupertinoDateInitialDateTime,
+    this.textfieldDatePickerWidth = 84,
+    this.textfieldDatePickerMargin =
+        const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
   })  : assert(cupertinoDatePickerMinimumYear != 0),
         super(key: key);
 
@@ -159,77 +186,85 @@ class TextfieldDatePicker extends StatefulWidget {
 class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      key: widget.key,
-      showCursor: false,
-      readOnly: true,
-      onTap: () {
-        DatePicker()
-            .selectDate(
-                context: context,
-                materialDatePickerLastDate: widget.materialDatePickerLastDate,
-                materialDatePickerInitialEntryMode:
-                    widget.materialDatePickerInitialEntryMode,
-                materialDatePickerFirstDate: widget.materialDatePickerFirstDate,
-                materialDatePickerInitialDate:
-                    widget.materialDatePickerInitialDate,
-                preferredDateFormat: widget.preferredDateFormat,
-                materialDatePickerBuilder: widget.materialDatePickerBuilder,
-                materialDatePickerLocale: widget.materialDatePickerLocale,
-                materialDatePickerSelectableDayPredicate:
-                    widget.materialDatePickerSelectableDayPredicate,
-                cupertinoDatePickerMaximumDate:
-                    widget.cupertinoDatePickerMaximumDate,
-                cupertinoDatePickerMinimumDate:
-                    widget.cupertinoDatePickerMinimumDate,
-                cupertinoDatePickerMinimumYear:
-                    widget.cupertinoDatePickerMinimumYear,
-                cupertinoDatePickerBackgroundColor:
-                    widget.cupertinoDatePickerBackgroundColor,
-                cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
-                cupertinoDatePickerMaximumYear:
-                    widget.cupertinoDatePickerMaximumYear,
-                cupertinoDateInitialDateTime:
-                    widget.cupertinoDateInitialDateTime)
-            .then((value) {
-          if (value == null) {
-            return;
-          } else {
-            setState(() {
-              widget.textfieldDatePickerController.text =
-                  value == null ? "" : value;
-            });
-          }
-        });
-      },
-      focusNode: widget.focusNode,
-      autovalidateMode: widget.autovalidateMode,
-      decoration: widget.decoration,
-      enableInteractiveSelection: widget.enableInteractiveSelection,
-      expands: widget.expands,
-      enableSuggestions: widget.enableSuggestions,
-      autofillHints: widget.autofillHints,
-      controller: widget.textfieldDatePickerController,
-      cursorRadius: widget.cursorRadius,
-      cursorWidth: widget.cursorWidth,
-      cursorHeight: widget.cursorHeight,
-      cursorColor: widget.cursorColor,
-      onFieldSubmitted: widget.onFieldSubmitted,
-      onEditingComplete: widget.onEditingComplete,
-      onSaved: widget.onSaved,
-      validator: widget.validator,
-      style: widget.style,
-      strutStyle: widget.strutStyle,
-      textAlign: widget.textAlign,
-      textCapitalization: widget.textCapitalization,
-      textAlignVertical: widget.textAlignVertical,
-      textDirection: widget.textDirection,
-      textInputAction: widget.textInputAction,
-      toolbarOptions:
-          ToolbarOptions(copy: true, cut: true, paste: false, selectAll: true),
-      enabled: true,
-      autofocus: false,
-      keyboardType: null,
+    return Container(
+      width: MediaQuery.of(context).size.width *
+          (widget.textfieldDatePickerWidth / 100),
+      margin: widget.textfieldDatePickerMargin,
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+      child: TextFormField(
+        key: widget.key,
+        showCursor: false,
+        readOnly: true,
+        onTap: () {
+          DatePicker()
+              .selectDate(
+                  context: context,
+                  materialDatePickerLastDate: widget.materialDatePickerLastDate,
+                  materialDatePickerInitialEntryMode:
+                      widget.materialDatePickerInitialEntryMode,
+                  materialDatePickerFirstDate:
+                      widget.materialDatePickerFirstDate,
+                  materialDatePickerInitialDate:
+                      widget.materialDatePickerInitialDate,
+                  preferredDateFormat: widget.preferredDateFormat,
+                  materialDatePickerBuilder: widget.materialDatePickerBuilder,
+                  materialDatePickerLocale: widget.materialDatePickerLocale,
+                  materialDatePickerSelectableDayPredicate:
+                      widget.materialDatePickerSelectableDayPredicate,
+                  cupertinoDatePickerMaximumDate:
+                      widget.cupertinoDatePickerMaximumDate,
+                  cupertinoDatePickerMinimumDate:
+                      widget.cupertinoDatePickerMinimumDate,
+                  cupertinoDatePickerMinimumYear:
+                      widget.cupertinoDatePickerMinimumYear,
+                  cupertinoDatePickerBackgroundColor:
+                      widget.cupertinoDatePickerBackgroundColor,
+                  cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
+                  cupertinoDatePickerMaximumYear:
+                      widget.cupertinoDatePickerMaximumYear,
+                  cupertinoDateInitialDateTime:
+                      widget.cupertinoDateInitialDateTime)
+              .then((value) {
+            if (value == null) {
+              return;
+            } else {
+              setState(() {
+                widget.textfieldDatePickerController.text =
+                    value == null ? "" : value;
+              });
+            }
+            //DateTime.parse(value!.toIso8601String()); ----- to convert date to this type of format 2021-10-18T09:36:02.068Z. This is because some APIS may not accept the type of Date format you will be passing to [preferredDateFormat]
+          });
+        },
+        focusNode: widget.focusNode,
+        autovalidateMode: widget.autovalidateMode,
+        decoration: widget.decoration,
+        enableInteractiveSelection: widget.enableInteractiveSelection,
+        expands: widget.expands,
+        enableSuggestions: widget.enableSuggestions,
+        autofillHints: widget.autofillHints,
+        controller: widget.textfieldDatePickerController,
+        cursorRadius: widget.cursorRadius,
+        cursorWidth: widget.cursorWidth,
+        cursorHeight: widget.cursorHeight,
+        cursorColor: widget.cursorColor,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        onEditingComplete: widget.onEditingComplete,
+        onSaved: widget.onSaved,
+        validator: widget.validator,
+        style: widget.style,
+        strutStyle: widget.strutStyle,
+        textAlign: widget.textAlign,
+        textCapitalization: widget.textCapitalization,
+        textAlignVertical: widget.textAlignVertical,
+        textDirection: widget.textDirection,
+        textInputAction: widget.textInputAction,
+        toolbarOptions: ToolbarOptions(
+            copy: true, cut: true, paste: false, selectAll: true),
+        enabled: true,
+        autofocus: false,
+        keyboardType: null,
+      ),
     );
   }
 }

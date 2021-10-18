@@ -18,8 +18,6 @@ class DatePicker {
     required DateTime cupertinoDatePickerMaximumDate,
     required DateTime cupertinoDatePickerMinimumDate,
     Color? cupertinoDatePickerBackgroundColor,
-    //bool? cupertinoDatePickerUse24hFormat,
-    //int? cupertinoDatePickerminuteInterval,
     int cupertinoDatePickerMinimumYear = 1,
     int? cupertinoDatePickerMaximumYear,
     Key? cupertinoDatePickerKey,
@@ -86,6 +84,7 @@ class DatePicker {
       firstDate: materialDatePickerFirstDate,
       lastDate: materialDatePickerLastDate,
     );
+
     if (picked != null && picked != selectedDate) selectedDate = picked;
 
     if (picked == null) {
@@ -98,7 +97,6 @@ class DatePicker {
       date = "";
     }
 
-    //return [date, DateTime.parse(selectedDate!.toIso8601String())];
     return date;
   }
 
@@ -125,12 +123,6 @@ class DatePicker {
           maximumDate: cupertinoDatePickerMaximumDate,
           minimumDate: cupertinoDatePickerMinimumDate,
           mode: CupertinoDatePickerMode.date,
-          // minuteInterval: cupertinoDatePickerminuteInterval == null
-          //     ? 1
-          //     : cupertinoDatePickerminuteInterval,
-          // use24hFormat: cupertinoDatePickerUse24hFormat == null
-          //     ? false
-          //     : cupertinoDatePickerUse24hFormat,
           onDateTimeChanged: (picked) {
             if (picked != selectedDate) selectedDate = picked;
 
