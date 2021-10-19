@@ -8,6 +8,7 @@ class DateAndTimePicker {
   late DateTime wantedDate = DateTime.now();
   String? dateAndTime;
   DateTime? startDateFromProvider;
+  String? selectedTime;
 
   Future selectDate({
     required BuildContext context,
@@ -29,6 +30,9 @@ class DateAndTimePicker {
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     bool cupertinoDatePickerUse24hFormat = false,
     int cupertinoDatePickerminuteInterval = 0,
+    required TimeOfDay materialInitialTime,
+    Widget Function(BuildContext, Widget?)? timePickerBuilder,
+    TimePickerEntryMode timePickerInitialEntryMode = TimePickerEntryMode.dial,
   }) async {
     final ThemeData theme = Theme.of(context);
     switch (theme.platform) {
@@ -36,15 +40,19 @@ class DateAndTimePicker {
       case TargetPlatform.linux:
       case TargetPlatform.windows:
         return buildMaterialDateAndTimePicker(
-            context,
-            materialDatePickerInitialDate,
-            materialDatePickerFirstDate,
-            materialDatePickerLastDate,
-            preferredDateFormat,
-            materialDatePickerBuilder,
-            materialDatePickerInitialEntryMode,
-            materialDatePickerLocale,
-            materialDatePickerSelectableDayPredicate);
+          context,
+          materialDatePickerInitialDate,
+          materialDatePickerFirstDate,
+          materialDatePickerLastDate,
+          preferredDateFormat,
+          materialDatePickerBuilder,
+          materialDatePickerInitialEntryMode,
+          materialDatePickerLocale,
+          materialDatePickerSelectableDayPredicate,
+          materialInitialTime,
+          timePickerBuilder,
+          timePickerInitialEntryMode,
+        );
       case TargetPlatform.android:
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
@@ -75,6 +83,9 @@ class DateAndTimePicker {
     DatePickerEntryMode materialDatePickerInitialEntryMode,
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
+    TimeOfDay materialInitialTime,
+    Widget Function(BuildContext, Widget?)? timePickerBuilder,
+    TimePickerEntryMode timePickerInitialEntryMode, //= TimePickerEntryMode.dial
   ) async {
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
@@ -100,17 +111,29 @@ class DateAndTimePicker {
     }
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
+    String? _hour;
+    String? _minute;
+    String? _time;
 
-    // TimeOfDay timePicked = await showTimePicker(
-    //   context: ,
-    //   initialTime: ,
-    //   builder: ,
-    //   initialEntryMode: ,
-    //   hourLabelText: ,
-    //   minuteLabelText:
-    // );
+    final TimeOfDay? timePicked = await showTimePicker(
+      context: context,
+      initialTime: materialInitialTime,
+      builder: timePickerBuilder,
+      initialEntryMode: timePickerInitialEntryMode,
+    );
 
-    return dateAndTime;
+    if (timePicked != null) {
+      //selectedTime = timePicked;
+      _hour = timePicked.hour.toString();
+      _minute = timePicked.minute.toString();
+      _time = _hour + ' : ' + _minute;
+      selectedTime = _time;
+    }
+    // selectedTime = formatDate(
+    //     DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+    //     [hh, ':', nn, " ", am]).toString();
+
+    return dateAndTime! + ' ' + selectedTime!;
   }
 
   /// This builds cupertino date picker in iOS
