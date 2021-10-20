@@ -130,8 +130,15 @@ class TextfieldDatePicker extends StatefulWidget {
   //
   final num textfieldDatePickerWidth;
 
-  //[textfieldDatePickerMargin]
+  //[textfieldDatePickerMargin] allows you to add some margin to the [TextfieldDatePicker].
+  //By default it has a preset value of [const EdgeInsets.symmetric(vertical: 10, horizontal: 0)], but can be adjusted based on preference/choice.
+  //
   final EdgeInsetsGeometry? textfieldDatePickerMargin;
+
+  //[textfieldDatePickerPadding] allows you to add some padding to the [TextfieldDatePicker], quite similar to [textfieldDatePickerMargin].
+  //Again, by default a preset value of [const EdgeInsets.symmetric(horizontal: 5, vertical: 0)], but can be modified based on preference/choice.
+  //
+  final EdgeInsetsGeometry? textfieldDatePickerPadding;
 
   TextfieldDatePicker({
     Key? key,
@@ -176,6 +183,8 @@ class TextfieldDatePicker extends StatefulWidget {
     this.textfieldDatePickerWidth = 84,
     this.textfieldDatePickerMargin =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+    this.textfieldDatePickerPadding =
+        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
   })  : assert(cupertinoDatePickerMinimumYear != 0),
         super(key: key);
 
@@ -190,12 +199,13 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
       width: MediaQuery.of(context).size.width *
           (widget.textfieldDatePickerWidth / 100),
       margin: widget.textfieldDatePickerMargin,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+      padding: widget.textfieldDatePickerPadding,
       child: TextFormField(
         key: widget.key,
         showCursor: false,
         readOnly: true,
         onTap: () {
+          ///Call the Date Picker Method
           DatePicker()
               .selectDate(
                   context: context,

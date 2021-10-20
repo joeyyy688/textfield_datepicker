@@ -31,8 +31,9 @@ class DateAndTimePicker {
     bool cupertinoDatePickerUse24hFormat = false,
     int cupertinoDatePickerminuteInterval = 0,
     required TimeOfDay materialInitialTime,
-    Widget Function(BuildContext, Widget?)? timePickerBuilder,
-    TimePickerEntryMode timePickerInitialEntryMode = TimePickerEntryMode.dial,
+    Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
+    TimePickerEntryMode materialTimePickerInitialEntryMode =
+        TimePickerEntryMode.dial,
   }) async {
     final ThemeData theme = Theme.of(context);
     switch (theme.platform) {
@@ -50,8 +51,8 @@ class DateAndTimePicker {
           materialDatePickerLocale,
           materialDatePickerSelectableDayPredicate,
           materialInitialTime,
-          timePickerBuilder,
-          timePickerInitialEntryMode,
+          materialTimePickerBuilder,
+          materialTimePickerInitialEntryMode,
         );
       case TargetPlatform.android:
       case TargetPlatform.iOS:
@@ -84,8 +85,9 @@ class DateAndTimePicker {
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     TimeOfDay materialInitialTime,
-    Widget Function(BuildContext, Widget?)? timePickerBuilder,
-    TimePickerEntryMode timePickerInitialEntryMode, //= TimePickerEntryMode.dial
+    Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
+    TimePickerEntryMode
+        materialTimePickerInitialEntryMode, //= TimePickerEntryMode.dial
   ) async {
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
@@ -118,8 +120,8 @@ class DateAndTimePicker {
     final TimeOfDay? timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
-      builder: timePickerBuilder,
-      initialEntryMode: timePickerInitialEntryMode,
+      builder: materialTimePickerBuilder,
+      initialEntryMode: materialTimePickerInitialEntryMode,
     );
 
     if (timePicked != null) {
