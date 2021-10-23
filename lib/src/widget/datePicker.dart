@@ -33,7 +33,7 @@ class DatePicker {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
-        return buildMaterialDatePicker(
+        return _buildMaterialDatePicker(
             context,
             materialDatePickerInitialDate,
             materialDatePickerFirstDate,
@@ -45,7 +45,7 @@ class DatePicker {
             materialDatePickerSelectableDayPredicate);
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        return buildCupertinoDatePicker(
+        return _buildCupertinoDatePicker(
           context: context,
           preferredDateFormat: preferredDateFormat,
           cupertinoDatePickerMaximumDate: cupertinoDatePickerMaximumDate,
@@ -61,7 +61,7 @@ class DatePicker {
   }
 
   /// This builds material date picker in Android
-  Future buildMaterialDatePicker(
+  Future _buildMaterialDatePicker(
     // The returned [Future] resolves to the date selected by the user when the user confirms the dialog. If the user cancels the dialog, null is returned.
     BuildContext context,
     DateTime materialDatePickerInitialDate,
@@ -101,7 +101,7 @@ class DatePicker {
   }
 
   /// This builds cupertino date picker in iOS
-  Future buildCupertinoDatePicker({
+  Future _buildCupertinoDatePicker({
     required BuildContext context,
     Key? key,
     Color? cupertinoDatePickerBackgroundColor,

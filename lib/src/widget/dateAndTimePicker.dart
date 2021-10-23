@@ -10,7 +10,7 @@ class DateAndTimePicker {
   DateTime? startDateFromProvider;
   String? selectedTime;
 
-  Future selectDate({
+  Future selectDateAndTime({
     required BuildContext context,
     required DateTime materialDatePickerInitialDate,
     required DateTime materialDatePickerFirstDate,
@@ -40,7 +40,7 @@ class DateAndTimePicker {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
-        return buildMaterialDateAndTimePicker(
+        return _buildMaterialDateAndTimePicker(
           context,
           materialDatePickerInitialDate,
           materialDatePickerFirstDate,
@@ -57,7 +57,7 @@ class DateAndTimePicker {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        return buildCupertinoDateAndTimePicker(
+        return _buildCupertinoDateAndTimePicker(
           context: context,
           preferredDateFormat: preferredDateFormat,
           cupertinoDatePickerMaximumDate: cupertinoDatePickerMaximumDate,
@@ -74,7 +74,7 @@ class DateAndTimePicker {
   }
 
   /// This builds material date picker in Android
-  Future buildMaterialDateAndTimePicker(
+  Future _buildMaterialDateAndTimePicker(
     BuildContext context,
     DateTime materialDatePickerInitialDate,
     DateTime materialDatePickerFirstDate,
@@ -139,7 +139,7 @@ class DateAndTimePicker {
   }
 
   /// This builds cupertino date picker in iOS
-  Future<String?> buildCupertinoDateAndTimePicker({
+  Future<String?> _buildCupertinoDateAndTimePicker({
     required BuildContext context,
     Key? key,
     Color? cupertinoDatePickerBackgroundColor,

@@ -18,7 +18,6 @@ class _TextFieldDatePicker2State extends State<TextFieldDatePicker2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -27,9 +26,8 @@ class _TextFieldDatePicker2State extends State<TextFieldDatePicker2> {
         title: Text(
           'TextField Date Picker Example 2',
           style: TextStyle(
-            fontSize: displayWidth(context) * 0.060,
+            fontSize: displayWidth(context) * 0.050,
             color: Colors.black,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),

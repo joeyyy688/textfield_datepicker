@@ -6,32 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:textfield_datepicker/textfield_datepicker.dart';
 import 'package:intl/intl.dart';
 
-class TextFieldDatePickerDemo extends StatefulWidget {
+class TextFieldDatePickerDemo1 extends StatefulWidget {
   static const routeName = '/textFieldDatePickerDemo';
-  const TextFieldDatePickerDemo({Key? key}) : super(key: key);
+  const TextFieldDatePickerDemo1({Key? key}) : super(key: key);
 
   @override
-  _TextFieldDatePickerDemoState createState() =>
-      _TextFieldDatePickerDemoState();
+  _TextFieldDatePickerDemo1State createState() =>
+      _TextFieldDatePickerDemo1State();
 }
 
-class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
+class _TextFieldDatePickerDemo1State extends State<TextFieldDatePickerDemo1> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        elevation: 0,
+        elevation: 7,
+        automaticallyImplyLeading: true,
         centerTitle: true,
         title: Text(
           'TextField Date Picker Example 1',
           style: TextStyle(
-            fontSize: displayWidth(context) * 0.060,
+            fontSize: displayWidth(context) * 0.050,
             color: Colors.black,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -93,7 +91,7 @@ class _TextFieldDatePickerDemoState extends State<TextFieldDatePickerDemo> {
               height: 50,
             ),
             ElevatedButton(
-              child: const Text('Next Page'),
+              child: const Text('See Next Page for Example 2'),
               onPressed: () {
                 Navigator.of(context).pushNamed(TextFieldDatePicker2.routeName);
               },
