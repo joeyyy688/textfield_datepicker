@@ -28,8 +28,8 @@ class _TextFieldDatePickerDemo1State extends State<TextFieldDatePickerDemo1> {
         title: Text(
           'TextField Date Picker Example 1',
           style: TextStyle(
-            fontSize: displayWidth(context) * 0.050,
-            color: Colors.black,
+            fontSize: displayWidth(context) * 0.045,
+            color: Colors.white,
           ),
         ),
       ),

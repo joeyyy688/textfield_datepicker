@@ -2,6 +2,7 @@
 
 import 'package:example/mediaQuery/size_helpers.dart';
 import 'package:example/screens/textfieldDatePicker1.dart';
+import 'package:example/screens/textfieldDateTimePicker.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
           'Welcome to textfield_datepicker',
           style: TextStyle(
             fontSize: displayWidth(context) * 0.050,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -42,7 +43,10 @@ class _WelcomePageState extends State<WelcomePage> {
               child: const Text("TextField Date Picker"),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(TextFieldDateTimePicker.routeName);
+              },
               child: const Text("TextField Date Time Picker"),
             ),
             ElevatedButton(

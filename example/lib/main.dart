@@ -1,5 +1,6 @@
 import 'package:example/screens/textfieldDatePicker1.dart';
 import 'package:example/screens/textfieldDatePicker2.dart';
+import 'package:example/screens/textfieldDateTimePicker.dart';
 import 'package:example/screens/welcomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
             const TextFieldDatePickerDemo1(),
         TextFieldDatePicker2.routeName: (context) =>
             const TextFieldDatePicker2(),
-        WelcomePage.routeName: (context) => const WelcomePage()
+        WelcomePage.routeName: (context) => const WelcomePage(),
+        TextFieldDateTimePicker.routeName: (context) =>
+            const TextFieldDateTimePicker(),
       },
     );
   }
