@@ -51,7 +51,10 @@ class _TextFieldDateTimePickerState extends State<TextFieldDateTimePicker> {
               materialDatePickerFirstDate: DateTime.now(),
               materialDatePickerInitialDate: DateTime.now(),
               materialDatePickerLastDate: DateTime(2099),
-              preferredDateFormat: DateFormat('dd-MMMM-' 'yyyy hh:mm a'),
+              preferredDateFormat: DateFormat.yMMMEd(),
+              materialTimePickerUse24hrFormat: false,
+              cupertinoDatePickerminuteInterval: 1,
+              cupertinoDatePickerUse24hFormat: false,
               textfieldDateAndTimePickerController: _controller,
               style: TextStyle(
                 fontSize: displayWidth(context) * 0.040,
