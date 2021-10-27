@@ -18,85 +18,92 @@ class DateAndTimePicker {
     required DateTime materialDatePickerFirstDate,
     required DateTime materialDatePickerLastDate,
     required bool materialTimePickerUse24hrFormat,
+    required DatePickerEntryMode materialDatePickerInitialEntryMode,
     required DateFormat preferredDateFormat,
+    required TimeOfDay materialInitialTime,
+    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
+    Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
+    TimePickerEntryMode materialTimePickerInitialEntryMode =
+        TimePickerEntryMode.dial,
+    Locale? materialDatePickerLocale,
+    bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     required DateTime? cupertinoDateInitialDateTime,
     required DateTime cupertinoDatePickerMaximumDate,
     required DateTime cupertinoDatePickerMinimumDate,
     Color? cupertinoDatePickerBackgroundColor,
-    //bool? cupertinoDatePickerUse24hFormat,
-    //int? cupertinoDatePickerminuteInterval,
     int cupertinoDatePickerMinimumYear = 1,
     int? cupertinoDatePickerMaximumYear,
     Key? cupertinoDatePickerKey,
-    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
-    required DatePickerEntryMode materialDatePickerInitialEntryMode,
-    Locale? materialDatePickerLocale,
-    bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     bool cupertinoDatePickerUse24hFormat = false,
     int cupertinoDatePickerminuteInterval = 0,
-    required TimeOfDay materialInitialTime,
-    Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
-    TimePickerEntryMode materialTimePickerInitialEntryMode =
-        TimePickerEntryMode.dial,
+    bool capitalizePeriod = false,
   }) async {
     final ThemeData theme = Theme.of(context);
+// Condition to check platform version and render widget
     switch (theme.platform) {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
         return _buildMaterialDateAndTimePicker(
-          context,
-          materialDatePickerInitialDate,
-          materialDatePickerFirstDate,
-          materialDatePickerLastDate,
-          materialTimePickerUse24hrFormat,
-          preferredDateFormat,
-          materialDatePickerBuilder,
-          materialDatePickerInitialEntryMode,
-          materialDatePickerLocale,
-          materialDatePickerSelectableDayPredicate,
-          materialInitialTime,
-          materialTimePickerBuilder,
-          materialTimePickerInitialEntryMode,
+          context: context,
+          materialDatePickerBuilder: materialDatePickerBuilder,
+          materialDatePickerFirstDate: materialDatePickerFirstDate,
+          materialDatePickerInitialDate: materialDatePickerInitialDate,
+          materialDatePickerInitialEntryMode:
+              materialDatePickerInitialEntryMode,
+          materialDatePickerLastDate: materialDatePickerLastDate,
+          materialDatePickerLocale: materialDatePickerLocale,
+          materialDatePickerSelectableDayPredicate:
+              materialDatePickerSelectableDayPredicate,
+          materialInitialTime: materialInitialTime,
+          materialTimePickerBuilder: materialTimePickerBuilder,
+          materialTimePickerInitialEntryMode:
+              materialTimePickerInitialEntryMode,
+          materialTimePickerUse24hrFormat: materialTimePickerUse24hrFormat,
+          preferredDateFormat: preferredDateFormat,
+          capitalizePeriod: capitalizePeriod,
         );
-
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
       case TargetPlatform.android:
         return _buildCupertinoDateAndTimePicker(
-            context: context,
-            preferredDateFormat: preferredDateFormat,
-            cupertinoDatePickerMaximumDate: cupertinoDatePickerMaximumDate,
-            cupertinoDatePickerMinimumDate: cupertinoDatePickerMinimumDate,
-            cupertinoDatePickerBackgroundColor:
-                cupertinoDatePickerBackgroundColor,
-            cupertinoDatePickerMinimumYear: cupertinoDatePickerMinimumYear,
-            cupertinoDatePickerMaximumYear: cupertinoDatePickerMaximumYear,
-            key: cupertinoDatePickerKey,
-            cupertinoDatePickerUse24hFormat: cupertinoDatePickerUse24hFormat,
-            cupertinoDatePickerminuteInterval:
-                cupertinoDatePickerminuteInterval,
-            cupertinoDateInitialDateTime: cupertinoDateInitialDateTime);
+          context: context,
+          preferredDateFormat: preferredDateFormat,
+          cupertinoDatePickerMaximumDate: cupertinoDatePickerMaximumDate,
+          cupertinoDatePickerMinimumDate: cupertinoDatePickerMinimumDate,
+          cupertinoDatePickerBackgroundColor:
+              cupertinoDatePickerBackgroundColor,
+          cupertinoDatePickerMinimumYear: cupertinoDatePickerMinimumYear,
+          cupertinoDatePickerMaximumYear: cupertinoDatePickerMaximumYear,
+          key: cupertinoDatePickerKey,
+          cupertinoDatePickerUse24hFormat: cupertinoDatePickerUse24hFormat,
+          cupertinoDatePickerminuteInterval: cupertinoDatePickerminuteInterval,
+          cupertinoDateInitialDateTime: cupertinoDateInitialDateTime,
+          capitalizePeriod: capitalizePeriod,
+        );
     }
   }
 
   /// This builds material date picker in Android
-  Future _buildMaterialDateAndTimePicker(
-    BuildContext context,
-    DateTime materialDatePickerInitialDate,
-    DateTime materialDatePickerFirstDate,
-    DateTime materialDatePickerLastDate,
-    bool materialTimePickerUse24hrFormat,
-    DateFormat preferredDateFormat,
-    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
-    DatePickerEntryMode materialDatePickerInitialEntryMode,
-    Locale? materialDatePickerLocale,
-    bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
-    TimeOfDay materialInitialTime,
-    Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
-    TimePickerEntryMode
+  Future _buildMaterialDateAndTimePicker({
+    required BuildContext context,
+    required DateTime materialDatePickerInitialDate,
+    required DateTime materialDatePickerFirstDate,
+    required DateTime materialDatePickerLastDate,
+    required bool materialTimePickerUse24hrFormat,
+    required DateFormat preferredDateFormat,
+    required Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
+    required DatePickerEntryMode materialDatePickerInitialEntryMode,
+    required Locale? materialDatePickerLocale,
+    required bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
+    required TimeOfDay materialInitialTime,
+    required Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
+    required TimePickerEntryMode
         materialTimePickerInitialEntryMode, //= TimePickerEntryMode.dial
-  ) async {
+    required bool capitalizePeriod,
+  }) async {
+// Calling of [showDatePicker] widget
+//
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
       initialEntryMode: materialDatePickerInitialEntryMode,
@@ -113,6 +120,9 @@ class DateAndTimePicker {
     if (picked == null) {
       return;
     }
+
+// Format or parse [selectedDate] to the [preferredDateFormat]
+//
     date = preferredDateFormat
         .format(DateTime.parse(selectedDate.toString().split('T').first));
 
@@ -122,6 +132,8 @@ class DateAndTimePicker {
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
 
+// Calling of [showTimePicker] widget
+//
     final TimeOfDay? timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
@@ -133,9 +145,10 @@ class DateAndTimePicker {
 
     if (timePicked != null) {
       _hour = timePicked.hour.toString();
+//
       _hourTracker = _hour;
 
-      print(_hourTracker);
+      //print(_hourTracker);
 
       if (!materialTimePickerUse24hrFormat && int.parse(_hour!) > 12) {
         _hour = (int.parse(_hour!) - 12).toString();
@@ -151,8 +164,13 @@ class DateAndTimePicker {
       } else if (int.parse(_hourTracker!) < 12) {
         period = 'AM';
       }
+
       _time = _hour! + ':' + _minute!;
       selectedTime = _time!;
+    }
+
+    if (!capitalizePeriod && period!.isNotEmpty) {
+      period!.toLowerCase();
     }
 
     dateAndTime = date! + ' ' + selectedTime + ' ' + period!;
@@ -169,10 +187,11 @@ class DateAndTimePicker {
     required DateTime? cupertinoDatePickerMinimumDate,
     required DateFormat preferredDateFormat,
     required DateTime? cupertinoDateInitialDateTime,
-    int cupertinoDatePickerMinimumYear = 1,
+    required int cupertinoDatePickerMinimumYear,
     int? cupertinoDatePickerMaximumYear,
-    int cupertinoDatePickerminuteInterval = 0,
-    bool cupertinoDatePickerUse24hFormat = false,
+    required int cupertinoDatePickerminuteInterval,
+    required bool cupertinoDatePickerUse24hFormat,
+    required bool capitalizePeriod,
   }) async {
     // ignore: unused_local_variable
     String? picked = await Utils().showSheet(
@@ -218,6 +237,10 @@ class DateAndTimePicker {
 
             if (date.runtimeType != String) {
               date = "";
+            }
+
+            if (!capitalizePeriod && period!.isNotEmpty) {
+              period!.toLowerCase();
             }
 
             dateAndTime = date! + ' ' + selectedTime + ' ' + period!;
