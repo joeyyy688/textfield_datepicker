@@ -138,12 +138,12 @@ class DatePicker {
           maximumYear: cupertinoDatePickerMaximumYear,
         ),
       ),
-      onClicked: (date) {
+      onClicked: () {
         Navigator.of(context).pop();
-        print(date);
-        return date;
+        //print(date);
+        //return date;
       },
-      value: date,
+      //value: date,
     );
     return date;
   }

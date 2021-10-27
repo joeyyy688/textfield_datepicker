@@ -1,7 +1,7 @@
 library textfield_datepicker;
 
 import 'package:flutter/material.dart';
-import 'package:textfield_datepicker/src/widget/dateAndTimePicker.dart';
+import 'package:textfield_datepicker/src/widgets/dateAndTimePicker.dart';
 import 'package:intl/intl.dart' as intl;
 
 class TextfieldDateAndTimePicker extends StatefulWidget {
@@ -48,14 +48,15 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   final Key? cupertinoDatePickerKey;
   final DateTime? cupertinoDateInitialDateTime;
   final num textfieldDatePickerWidth;
-  final EdgeInsetsGeometry? textfieldDatePickerMargin;
-  final EdgeInsetsGeometry? textfieldDatePickerPadding;
+  final EdgeInsetsGeometry? textfieldDateTimePickerMargin;
+  final EdgeInsetsGeometry? textfieldDateTimePickerPadding;
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
   final TimeOfDay materialInitialTime;
   final Widget Function(BuildContext, Widget?)? materialTimePickerBuilder;
   final TimePickerEntryMode materialTimePickerInitialEntryMode;
-  final bool cupertinoDatePickerUse24hFormat;
-  final int cupertinoDatePickerminuteInterval;
+  final bool cupertinoTimePickerUse24hFormat;
+  final int cupertinoTimePickerMinuteInterval;
+  final bool capitalizePeriod;
 
   TextfieldDateAndTimePicker({
     Key? key,
@@ -87,7 +88,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
     required this.materialDatePickerLastDate,
     required this.materialDatePickerInitialDate,
     required this.preferredDateFormat,
-    this.materialTimePickerUse24hrFormat = true,
+    this.materialTimePickerUse24hrFormat = false,
     this.materialDatePickerBuilder,
     this.materialDatePickerLocale,
     this.materialDatePickerSelectableDayPredicate,
@@ -99,15 +100,16 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
     required this.cupertinoDatePickerMaximumYear,
     required this.cupertinoDateInitialDateTime,
     this.textfieldDatePickerWidth = 84,
-    this.textfieldDatePickerMargin =
+    this.textfieldDateTimePickerMargin =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-    this.textfieldDatePickerPadding =
+    this.textfieldDateTimePickerPadding =
         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
     required this.materialInitialTime,
     this.materialTimePickerBuilder,
     this.materialTimePickerInitialEntryMode = TimePickerEntryMode.dial,
-    this.cupertinoDatePickerUse24hFormat = false,
-    this.cupertinoDatePickerminuteInterval = 5,
+    this.cupertinoTimePickerUse24hFormat = false,
+    this.cupertinoTimePickerMinuteInterval = 0,
+    this.capitalizePeriod = false,
   })  : assert(cupertinoDatePickerMinimumYear != 0),
         // assert(cupertinoDateInitialDateTime!.minute %
         //         cupertinoDatePickerminuteInterval ==
@@ -124,6 +126,10 @@ class _TextfieldDateAndTimePickerState
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width *
+          (widget.textfieldDatePickerWidth / 100),
+      margin: widget.textfieldDateTimePickerMargin,
+      padding: widget.textfieldDateTimePickerPadding,
       child: TextFormField(
         key: widget.key,
         showCursor: false,
@@ -132,42 +138,41 @@ class _TextfieldDateAndTimePickerState
           ///Call the DateTime Picker Method
           DateAndTimePicker()
               .selectDateAndTime(
-                  context: context,
-                  materialDatePickerFirstDate:
-                      widget.materialDatePickerFirstDate,
-                  materialDatePickerInitialDate:
-                      widget.materialDatePickerInitialDate,
-                  materialDatePickerInitialEntryMode:
-                      widget.materialDatePickerInitialEntryMode,
-                  materialDatePickerLastDate: widget.materialDatePickerLastDate,
-                  materialInitialTime: widget.materialInitialTime,
-                  materialTimePickerUse24hrFormat:
-                      widget.materialTimePickerUse24hrFormat,
-                  materialDatePickerBuilder: widget.materialDatePickerBuilder,
-                  materialDatePickerLocale: widget.materialDatePickerLocale,
-                  materialDatePickerSelectableDayPredicate:
-                      widget.materialDatePickerSelectableDayPredicate,
-                  materialTimePickerBuilder: widget.materialTimePickerBuilder,
-                  materialTimePickerInitialEntryMode:
-                      widget.materialTimePickerInitialEntryMode,
-                  preferredDateFormat: widget.preferredDateFormat,
-                  cupertinoDatePickerMaximumDate:
-                      widget.cupertinoDatePickerMaximumDate,
-                  cupertinoDatePickerMinimumDate:
-                      widget.cupertinoDatePickerMinimumDate,
-                  cupertinoDatePickerBackgroundColor:
-                      widget.cupertinoDatePickerBackgroundColor,
-                  cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
-                  cupertinoDatePickerMaximumYear:
-                      widget.cupertinoDatePickerMaximumYear,
-                  cupertinoDatePickerMinimumYear:
-                      widget.cupertinoDatePickerMinimumYear,
-                  cupertinoDatePickerUse24hFormat:
-                      widget.cupertinoDatePickerUse24hFormat,
-                  cupertinoDatePickerminuteInterval:
-                      widget.cupertinoDatePickerminuteInterval,
-                  cupertinoDateInitialDateTime:
-                      widget.cupertinoDateInitialDateTime)
+            context: context,
+            materialDatePickerFirstDate: widget.materialDatePickerFirstDate,
+            materialDatePickerInitialDate: widget.materialDatePickerInitialDate,
+            materialDatePickerInitialEntryMode:
+                widget.materialDatePickerInitialEntryMode,
+            materialDatePickerLastDate: widget.materialDatePickerLastDate,
+            materialInitialTime: widget.materialInitialTime,
+            materialTimePickerUse24hrFormat:
+                widget.materialTimePickerUse24hrFormat,
+            materialDatePickerBuilder: widget.materialDatePickerBuilder,
+            materialDatePickerLocale: widget.materialDatePickerLocale,
+            materialDatePickerSelectableDayPredicate:
+                widget.materialDatePickerSelectableDayPredicate,
+            materialTimePickerBuilder: widget.materialTimePickerBuilder,
+            materialTimePickerInitialEntryMode:
+                widget.materialTimePickerInitialEntryMode,
+            preferredDateFormat: widget.preferredDateFormat,
+            cupertinoDatePickerMaximumDate:
+                widget.cupertinoDatePickerMaximumDate,
+            cupertinoDatePickerMinimumDate:
+                widget.cupertinoDatePickerMinimumDate,
+            cupertinoDatePickerBackgroundColor:
+                widget.cupertinoDatePickerBackgroundColor,
+            cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
+            cupertinoDatePickerMaximumYear:
+                widget.cupertinoDatePickerMaximumYear,
+            cupertinoDatePickerMinimumYear:
+                widget.cupertinoDatePickerMinimumYear,
+            cupertinoTimePickerUse24hFormat:
+                widget.cupertinoTimePickerUse24hFormat,
+            cupertinoTimePickerMinuteInterval:
+                widget.cupertinoTimePickerMinuteInterval,
+            cupertinoDateInitialDateTime: widget.cupertinoDateInitialDateTime,
+            capitalizePeriod: widget.capitalizePeriod,
+          )
               .then((value) {
             if (value == null) {
               return;

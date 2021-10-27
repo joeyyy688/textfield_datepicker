@@ -1,3 +1,3 @@
 library textfield_datepicker;
 
-export 'src/textfield_dateAndTimePicker.dart';
+export 'src/packages/textfield_dateAndTimePicker.dart';

@@ -4,13 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:textfield_datepicker/src/utilities/utilities.dart';
 
 class DateAndTimePicker {
-  DateTime? selectedDate;
-  late DateTime wantedDate = DateTime.now();
-  String? date;
-  DateTime? startDateFromProvider;
-  String selectedTime = '';
-  String? _hour, _minute, _time, _hourTracker, period;
-  String? dateAndTime;
+  DateTime? _selectedDate;
+  String? _date;
+  String _selectedTime = '';
+  String? _hour, _minute, _time, _hourTracker;
+  String period = '';
+  String? _dateAndTime;
 
   Future selectDateAndTime({
     required BuildContext context,
@@ -21,29 +20,30 @@ class DateAndTimePicker {
     required DatePickerEntryMode materialDatePickerInitialEntryMode,
     required DateFormat preferredDateFormat,
     required TimeOfDay materialInitialTime,
+    required TimePickerEntryMode materialTimePickerInitialEntryMode,
     Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
     Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
-    TimePickerEntryMode materialTimePickerInitialEntryMode =
-        TimePickerEntryMode.dial,
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     required DateTime? cupertinoDateInitialDateTime,
     required DateTime cupertinoDatePickerMaximumDate,
     required DateTime cupertinoDatePickerMinimumDate,
+    required int cupertinoTimePickerMinuteInterval,
+    required bool capitalizePeriod,
+    required bool cupertinoTimePickerUse24hFormat,
+    required int cupertinoDatePickerMinimumYear,
     Color? cupertinoDatePickerBackgroundColor,
-    int cupertinoDatePickerMinimumYear = 1,
     int? cupertinoDatePickerMaximumYear,
     Key? cupertinoDatePickerKey,
-    bool cupertinoDatePickerUse24hFormat = false,
-    int cupertinoDatePickerminuteInterval = 0,
-    bool capitalizePeriod = false,
   }) async {
     final ThemeData theme = Theme.of(context);
-// Condition to check platform version and render widget
+    // Condition to check platform version and render widget
+    //
     switch (theme.platform) {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
+      case TargetPlatform.android:
         return _buildMaterialDateAndTimePicker(
           context: context,
           materialDatePickerBuilder: materialDatePickerBuilder,
@@ -63,9 +63,9 @@ class DateAndTimePicker {
           preferredDateFormat: preferredDateFormat,
           capitalizePeriod: capitalizePeriod,
         );
+
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-      case TargetPlatform.android:
         return _buildCupertinoDateAndTimePicker(
           context: context,
           preferredDateFormat: preferredDateFormat,
@@ -76,15 +76,16 @@ class DateAndTimePicker {
           cupertinoDatePickerMinimumYear: cupertinoDatePickerMinimumYear,
           cupertinoDatePickerMaximumYear: cupertinoDatePickerMaximumYear,
           key: cupertinoDatePickerKey,
-          cupertinoDatePickerUse24hFormat: cupertinoDatePickerUse24hFormat,
-          cupertinoDatePickerminuteInterval: cupertinoDatePickerminuteInterval,
+          cupertinoTimePickerUse24hFormat: cupertinoTimePickerUse24hFormat,
+          cupertinoTimePickerMinuteInterval: cupertinoTimePickerMinuteInterval,
           cupertinoDateInitialDateTime: cupertinoDateInitialDateTime,
           capitalizePeriod: capitalizePeriod,
         );
     }
   }
 
-  /// This builds material date picker in Android
+  // This builds material date picker in Android
+  //
   Future _buildMaterialDateAndTimePicker({
     required BuildContext context,
     required DateTime materialDatePickerInitialDate,
@@ -102,8 +103,8 @@ class DateAndTimePicker {
         materialTimePickerInitialEntryMode, //= TimePickerEntryMode.dial
     required bool capitalizePeriod,
   }) async {
-// Calling of [showDatePicker] widget
-//
+    // Calling of [showDatePicker] widget
+    //
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
       initialEntryMode: materialDatePickerInitialEntryMode,
@@ -115,25 +116,25 @@ class DateAndTimePicker {
       lastDate: materialDatePickerLastDate,
     );
 
-    if (picked != null && picked != selectedDate) selectedDate = picked;
+    if (picked != null && picked != _selectedDate) _selectedDate = picked;
 
     if (picked == null) {
       return;
     }
 
-// Format or parse [selectedDate] to the [preferredDateFormat]
-//
-    date = preferredDateFormat
-        .format(DateTime.parse(selectedDate.toString().split('T').first));
+    // Format or parse [_selectedDate] to the [preferredDateFormat]
+    //
+    _date = preferredDateFormat
+        .format(DateTime.parse(_selectedDate.toString().split('T').first));
 
-    if (date.runtimeType != String) {
-      date = "";
+    if (_date.runtimeType != String) {
+      _date = "";
     }
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
 
-// Calling of [showTimePicker] widget
-//
+    // Calling of [showTimePicker] widget
+    //
     final TimeOfDay? timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
@@ -141,22 +142,18 @@ class DateAndTimePicker {
       initialEntryMode: materialTimePickerInitialEntryMode,
     );
 
-    // print(timePicked.);
-
     if (timePicked != null) {
       _hour = timePicked.hour.toString();
-//
-      _hourTracker = _hour;
 
-      //print(_hourTracker);
+      //[_hourTracker] is used to keep track of the hour picked
+      //This variable is later used to display the time period based on [materialTimePickerUse24hrFormat] value
+      //
+      _hourTracker = _hour;
 
       if (!materialTimePickerUse24hrFormat && int.parse(_hour!) > 12) {
         _hour = (int.parse(_hour!) - 12).toString();
       }
 
-      _minute = timePicked.minute.toString();
-
-      //make sure to add a parameter to either capitalize the period
       if (!materialTimePickerUse24hrFormat && int.parse(_hourTracker!) >= 12) {
         period = 'PM';
       } else if (materialTimePickerUse24hrFormat) {
@@ -165,20 +162,24 @@ class DateAndTimePicker {
         period = 'AM';
       }
 
+      if (!capitalizePeriod && period.isNotEmpty) {
+        period.toLowerCase();
+      }
+
+      _minute = timePicked.minute.toString();
+
       _time = _hour! + ':' + _minute!;
-      selectedTime = _time!;
+
+      _selectedTime = _time!;
     }
 
-    if (!capitalizePeriod && period!.isNotEmpty) {
-      period!.toLowerCase();
-    }
+    _dateAndTime = _date! + ' ' + _selectedTime + ' ' + period;
 
-    dateAndTime = date! + ' ' + selectedTime + ' ' + period!;
-
-    return dateAndTime;
+    return _dateAndTime;
   }
 
-  /// This builds cupertino date picker in iOS
+  // This builds cupertino date picker in iOS
+  //
   Future<String?> _buildCupertinoDateAndTimePicker({
     required BuildContext context,
     Key? key,
@@ -189,8 +190,8 @@ class DateAndTimePicker {
     required DateTime? cupertinoDateInitialDateTime,
     required int cupertinoDatePickerMinimumYear,
     int? cupertinoDatePickerMaximumYear,
-    required int cupertinoDatePickerminuteInterval,
-    required bool cupertinoDatePickerUse24hFormat,
+    required int cupertinoTimePickerMinuteInterval,
+    required bool cupertinoTimePickerUse24hFormat,
     required bool capitalizePeriod,
   }) async {
     // ignore: unused_local_variable
@@ -204,48 +205,49 @@ class DateAndTimePicker {
           maximumDate: cupertinoDatePickerMaximumDate,
           minimumDate: cupertinoDatePickerMinimumDate,
           mode: CupertinoDatePickerMode.dateAndTime,
-          minuteInterval: cupertinoDatePickerminuteInterval,
-          use24hFormat: cupertinoDatePickerUse24hFormat,
+          minuteInterval: cupertinoTimePickerMinuteInterval,
+          use24hFormat: cupertinoTimePickerUse24hFormat,
           onDateTimeChanged: (picked) {
-            if (picked != selectedDate) selectedDate = picked;
+            if (picked != _selectedDate) _selectedDate = picked;
 
-            _hour = selectedDate!.hour.toString();
+            _date = preferredDateFormat.format(
+                DateTime.parse(_selectedDate.toString().split('T').first));
+
+            if (_date.runtimeType != String) {
+              _date = "";
+            }
+
+            _hour = _selectedDate!.hour.toString();
+
+            //[_hourTracker] is used to keep track of the hour picked
+            //This variable is later used to display the time period based on [cupertinoDatePickerUse24hFormat] value
+            //
             _hourTracker = _hour;
 
-            print(_hourTracker);
-
-            if (!cupertinoDatePickerUse24hFormat && int.parse(_hour!) > 12) {
+            if (!cupertinoTimePickerUse24hFormat && int.parse(_hour!) > 12) {
               _hour = (int.parse(_hour!) - 12).toString();
             }
 
-            _minute = selectedDate!.minute.toString();
-
-            //make sure to add a parameter to either capitalize the period
-            if (!cupertinoDatePickerUse24hFormat &&
+            if (!cupertinoTimePickerUse24hFormat &&
                 int.parse(_hourTracker!) >= 12) {
               period = 'PM';
-            } else if (cupertinoDatePickerUse24hFormat) {
+            } else if (cupertinoTimePickerUse24hFormat) {
               period = '';
             } else if (int.parse(_hourTracker!) < 12) {
               period = 'AM';
             }
+
+            if (!capitalizePeriod && period.isNotEmpty) {
+              period.toLowerCase();
+            }
+
+            _minute = _selectedDate!.minute.toString();
+
             _time = _hour! + ':' + _minute!;
-            selectedTime = _time!;
 
-            date = preferredDateFormat.format(
-                DateTime.parse(selectedDate.toString().split('T').first));
+            _selectedTime = _time!;
 
-            if (date.runtimeType != String) {
-              date = "";
-            }
-
-            if (!capitalizePeriod && period!.isNotEmpty) {
-              period!.toLowerCase();
-            }
-
-            dateAndTime = date! + ' ' + selectedTime + ' ' + period!;
-
-            print(date);
+            _dateAndTime = _date! + ' ' + _selectedTime + ' ' + period;
           },
           initialDateTime: DateTime(
               cupertinoDateInitialDateTime!.year,
@@ -257,13 +259,13 @@ class DateAndTimePicker {
           maximumYear: cupertinoDatePickerMaximumYear,
         ),
       ),
-      onClicked: (date) {
+      onClicked: () {
         Navigator.of(context).pop();
-        print(date);
-        //return date;
+        //print(date);
+        //return _dateAndTime;
       },
-      value: dateAndTime,
+      //value: _dateAndTime,
     );
-    return dateAndTime;
+    return _dateAndTime;
   }
 }

@@ -5,8 +5,8 @@ class Utils {
   Future showSheet(
     BuildContext context, {
     required Widget child,
-    required String? Function(String?) onClicked,
-    required String? value,
+    required String? Function() onClicked,
+    //required String? value,
   }) =>
       showCupertinoModalPopup(
         context: context,
@@ -16,7 +16,7 @@ class Utils {
           ],
           cancelButton: CupertinoActionSheetAction(
             child: Text('Done'),
-            onPressed: () => onClicked(value),
+            onPressed: () => onClicked(),
           ),
         ),
       );

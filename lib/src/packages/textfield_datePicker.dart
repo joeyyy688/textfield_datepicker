@@ -3,7 +3,7 @@ library textfield_datepicker;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'package:textfield_datepicker/src/widget/datePicker.dart';
+import 'package:textfield_datepicker/src/widgets/datePicker.dart';
 
 //A widget(TextfieldDatePicker) that gives access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
 //
