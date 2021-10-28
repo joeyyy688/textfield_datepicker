@@ -31,6 +31,7 @@ class DateAndTimePicker {
     required int cupertinoDatePickerMinimumYear,
     Color? cupertinoDatePickerBackgroundColor,
     int? cupertinoDatePickerMaximumYear,
+    DatePickerDateOrder? cupertinoDateOrder,
     Key? cupertinoDatePickerKey,
   }) async {
     final ThemeData theme = Theme.of(context);
@@ -75,6 +76,7 @@ class DateAndTimePicker {
           cupertinoTimePickerUse24hFormat: cupertinoTimePickerUse24hFormat,
           cupertinoTimePickerMinuteInterval: cupertinoTimePickerMinuteInterval,
           cupertinoDateInitialDateTime: cupertinoDateInitialDateTime,
+          cupertinoDateOrder: cupertinoDateOrder,
         );
     }
   }
@@ -180,6 +182,7 @@ class DateAndTimePicker {
     int? cupertinoDatePickerMaximumYear,
     required int cupertinoTimePickerMinuteInterval,
     required bool cupertinoTimePickerUse24hFormat,
+    DatePickerDateOrder? cupertinoDateOrder,
   }) async {
     // ignore: unused_local_variable
     String? picked = await Utils().showSheet(
@@ -187,6 +190,7 @@ class DateAndTimePicker {
       child: Container(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoDatePicker(
+          dateOrder: cupertinoDateOrder,
           backgroundColor: cupertinoDatePickerBackgroundColor,
           key: key,
           maximumDate: cupertinoDatePickerMaximumDate,

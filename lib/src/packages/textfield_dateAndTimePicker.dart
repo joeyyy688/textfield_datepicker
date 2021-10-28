@@ -1,5 +1,6 @@
 library textfield_datepicker;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_datepicker/src/widgets/dateAndTimePicker.dart';
 import 'package:intl/intl.dart' as intl;
@@ -51,6 +52,9 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   final EdgeInsetsGeometry? textfieldDateTimePickerMargin;
   final EdgeInsetsGeometry? textfieldDateTimePickerPadding;
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
+  //[cupertinoDateOrder] determines the order of the columns inside [CupertinoDatePicker] in date mode. Defaults to the locale's default date format/order.
+  //
+  final DatePickerDateOrder? cupertinoDateOrder;
   final TimeOfDay materialInitialTime;
   final Widget Function(BuildContext, Widget?)? materialTimePickerBuilder;
   final TimePickerEntryMode materialTimePickerInitialEntryMode;
@@ -110,6 +114,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
     this.cupertinoTimePickerUse24hFormat = false,
     this.cupertinoTimePickerMinuteInterval = 0,
     this.capitalizePeriod = true,
+    this.cupertinoDateOrder,
   }) : super(key: key);
 
   @override
@@ -167,6 +172,7 @@ class _TextfieldDateAndTimePickerState
             cupertinoTimePickerMinuteInterval:
                 widget.cupertinoTimePickerMinuteInterval,
             cupertinoDateInitialDateTime: widget.cupertinoDateInitialDateTime,
+            cupertinoDateOrder: widget.cupertinoDateOrder,
           )
               .then((value) {
             if (value == null) {

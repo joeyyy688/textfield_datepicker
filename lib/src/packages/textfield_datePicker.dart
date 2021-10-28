@@ -1,5 +1,6 @@
 library textfield_datepicker;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -125,6 +126,10 @@ class TextfieldDatePicker extends StatefulWidget {
   //
   final DateTime? cupertinoDateInitialDateTime;
 
+  //[cupertinoDateOrder] determines the order of the columns inside [CupertinoDatePicker] in date mode. Defaults to the locale's default date format/order.
+  //
+  final DatePickerDateOrder? cupertinoDateOrder;
+
   //[textfieldDatePickerWidth] gives you the option to adjust the width of the [TextfieldDatePicker]
   //[textfieldDatePickerWidth] defaults to 84, which is 84 percent of the available screen width
   //
@@ -180,6 +185,7 @@ class TextfieldDatePicker extends StatefulWidget {
     this.cupertinoDatePickerKey,
     required this.cupertinoDatePickerMaximumYear,
     required this.cupertinoDateInitialDateTime,
+    this.cupertinoDateOrder,
     this.textfieldDatePickerWidth = 84,
     this.textfieldDatePickerMargin =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
@@ -208,32 +214,31 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
           ///Call the Date Picker Method
           DatePicker()
               .selectDate(
-                  context: context,
-                  materialDatePickerLastDate: widget.materialDatePickerLastDate,
-                  materialDatePickerInitialEntryMode:
-                      widget.materialDatePickerInitialEntryMode,
-                  materialDatePickerFirstDate:
-                      widget.materialDatePickerFirstDate,
-                  materialDatePickerInitialDate:
-                      widget.materialDatePickerInitialDate,
-                  preferredDateFormat: widget.preferredDateFormat,
-                  materialDatePickerBuilder: widget.materialDatePickerBuilder,
-                  materialDatePickerLocale: widget.materialDatePickerLocale,
-                  materialDatePickerSelectableDayPredicate:
-                      widget.materialDatePickerSelectableDayPredicate,
-                  cupertinoDatePickerMaximumDate:
-                      widget.cupertinoDatePickerMaximumDate,
-                  cupertinoDatePickerMinimumDate:
-                      widget.cupertinoDatePickerMinimumDate,
-                  cupertinoDatePickerMinimumYear:
-                      widget.cupertinoDatePickerMinimumYear,
-                  cupertinoDatePickerBackgroundColor:
-                      widget.cupertinoDatePickerBackgroundColor,
-                  cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
-                  cupertinoDatePickerMaximumYear:
-                      widget.cupertinoDatePickerMaximumYear,
-                  cupertinoDateInitialDateTime:
-                      widget.cupertinoDateInitialDateTime)
+            context: context,
+            materialDatePickerLastDate: widget.materialDatePickerLastDate,
+            materialDatePickerInitialEntryMode:
+                widget.materialDatePickerInitialEntryMode,
+            materialDatePickerFirstDate: widget.materialDatePickerFirstDate,
+            materialDatePickerInitialDate: widget.materialDatePickerInitialDate,
+            preferredDateFormat: widget.preferredDateFormat,
+            materialDatePickerBuilder: widget.materialDatePickerBuilder,
+            materialDatePickerLocale: widget.materialDatePickerLocale,
+            materialDatePickerSelectableDayPredicate:
+                widget.materialDatePickerSelectableDayPredicate,
+            cupertinoDatePickerMaximumDate:
+                widget.cupertinoDatePickerMaximumDate,
+            cupertinoDatePickerMinimumDate:
+                widget.cupertinoDatePickerMinimumDate,
+            cupertinoDatePickerMinimumYear:
+                widget.cupertinoDatePickerMinimumYear,
+            cupertinoDatePickerBackgroundColor:
+                widget.cupertinoDatePickerBackgroundColor,
+            cupertinoDatePickerKey: widget.cupertinoDatePickerKey,
+            cupertinoDatePickerMaximumYear:
+                widget.cupertinoDatePickerMaximumYear,
+            cupertinoDateInitialDateTime: widget.cupertinoDateInitialDateTime,
+            cupertinoDateOrder: widget.cupertinoDateOrder,
+          )
               .then((value) {
             if (value == null) {
               return;

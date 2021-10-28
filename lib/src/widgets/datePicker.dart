@@ -12,18 +12,19 @@ class DatePicker {
     required DateTime materialDatePickerInitialDate,
     required DateTime materialDatePickerFirstDate,
     required DateTime materialDatePickerLastDate,
+    required DatePickerEntryMode materialDatePickerInitialEntryMode,
+    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
     required DateFormat preferredDateFormat,
+    required int cupertinoDatePickerMinimumYear,
     required DateTime cupertinoDatePickerMaximumDate,
     required DateTime cupertinoDatePickerMinimumDate,
+    required DateTime? cupertinoDateInitialDateTime,
     Color? cupertinoDatePickerBackgroundColor,
-    int cupertinoDatePickerMinimumYear = 1,
+    DatePickerDateOrder? cupertinoDateOrder,
     int? cupertinoDatePickerMaximumYear,
     Key? cupertinoDatePickerKey,
-    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
-    required DatePickerEntryMode materialDatePickerInitialEntryMode,
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
-    required DateTime? cupertinoDateInitialDateTime,
   }) async {
     final ThemeData theme = Theme.of(context);
     switch (theme.platform) {
@@ -32,15 +33,18 @@ class DatePicker {
       case TargetPlatform.linux:
       case TargetPlatform.windows:
         return _buildMaterialDatePicker(
-            context,
-            materialDatePickerInitialDate,
-            materialDatePickerFirstDate,
-            materialDatePickerLastDate,
-            preferredDateFormat,
-            materialDatePickerBuilder,
-            materialDatePickerInitialEntryMode,
-            materialDatePickerLocale,
-            materialDatePickerSelectableDayPredicate);
+          context: context,
+          materialDatePickerBuilder: materialDatePickerBuilder,
+          materialDatePickerFirstDate: materialDatePickerFirstDate,
+          materialDatePickerInitialDate: materialDatePickerInitialDate,
+          materialDatePickerInitialEntryMode:
+              materialDatePickerInitialEntryMode,
+          materialDatePickerLastDate: materialDatePickerLastDate,
+          materialDatePickerLocale: materialDatePickerLocale,
+          materialDatePickerSelectableDayPredicate:
+              materialDatePickerSelectableDayPredicate,
+          preferredDateFormat: preferredDateFormat,
+        );
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
         return _buildCupertinoDatePicker(
@@ -54,23 +58,24 @@ class DatePicker {
           cupertinoDatePickerMaximumYear: cupertinoDatePickerMaximumYear,
           key: cupertinoDatePickerKey,
           cupertinoDateInitialDateTime: cupertinoDateInitialDateTime,
+          cupertinoDateOrder: cupertinoDateOrder,
         );
     }
   }
 
   /// This builds material date picker in Android
-  Future _buildMaterialDatePicker(
+  Future _buildMaterialDatePicker({
     // The returned [Future] resolves to the date selected by the user when the user confirms the dialog. If the user cancels the dialog, null is returned.
-    BuildContext context,
-    DateTime materialDatePickerInitialDate,
-    DateTime materialDatePickerFirstDate,
-    DateTime materialDatePickerLastDate,
-    DateFormat preferredDateFormat,
-    Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
-    DatePickerEntryMode materialDatePickerInitialEntryMode,
-    Locale? materialDatePickerLocale,
-    bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
-  ) async {
+    required BuildContext context,
+    required DateTime materialDatePickerInitialDate,
+    required DateTime materialDatePickerFirstDate,
+    required DateTime materialDatePickerLastDate,
+    required DateFormat preferredDateFormat,
+    required Widget Function(BuildContext, Widget?)? materialDatePickerBuilder,
+    required DatePickerEntryMode materialDatePickerInitialEntryMode,
+    required Locale? materialDatePickerLocale,
+    required bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
+  }) async {
     //Shows a dialog containing a Material Design date picker.
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
@@ -99,16 +104,17 @@ class DatePicker {
   }
 
   /// This builds cupertino date picker in iOS
-  Future _buildCupertinoDatePicker({
+  Future<String?> _buildCupertinoDatePicker({
     required BuildContext context,
     Key? key,
     Color? cupertinoDatePickerBackgroundColor,
     required DateTime? cupertinoDatePickerMaximumDate,
     required DateTime? cupertinoDatePickerMinimumDate,
     required DateFormat preferredDateFormat,
-    int cupertinoDatePickerMinimumYear = 1,
+    required int cupertinoDatePickerMinimumYear,
     int? cupertinoDatePickerMaximumYear,
     required DateTime? cupertinoDateInitialDateTime,
+    DatePickerDateOrder? cupertinoDateOrder,
   }) async {
     // ignore: unused_local_variable
     String? picked = await Utils().showSheet(
@@ -116,6 +122,7 @@ class DatePicker {
       child: Container(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoDatePicker(
+          dateOrder: cupertinoDateOrder,
           backgroundColor: cupertinoDatePickerBackgroundColor,
           key: key,
           maximumDate: cupertinoDatePickerMaximumDate,
