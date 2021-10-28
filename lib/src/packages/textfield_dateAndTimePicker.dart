@@ -109,12 +109,8 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
     this.materialTimePickerInitialEntryMode = TimePickerEntryMode.dial,
     this.cupertinoTimePickerUse24hFormat = false,
     this.cupertinoTimePickerMinuteInterval = 0,
-    this.capitalizePeriod = false,
-  })  : assert(cupertinoDatePickerMinimumYear != 0),
-        // assert(cupertinoDateInitialDateTime!.minute %
-        //         cupertinoDatePickerminuteInterval ==
-        //     0),
-        super(key: key);
+    this.capitalizePeriod = true,
+  }) : super(key: key);
 
   @override
   _TextfieldDateAndTimePickerState createState() =>
@@ -171,7 +167,6 @@ class _TextfieldDateAndTimePickerState
             cupertinoTimePickerMinuteInterval:
                 widget.cupertinoTimePickerMinuteInterval,
             cupertinoDateInitialDateTime: widget.cupertinoDateInitialDateTime,
-            capitalizePeriod: widget.capitalizePeriod,
           )
               .then((value) {
             if (value == null) {

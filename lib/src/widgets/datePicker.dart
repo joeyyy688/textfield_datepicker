@@ -4,10 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:textfield_datepicker/src/utilities/utilities.dart';
 
 class DatePicker {
-  DateTime? selectedDate;
-  late DateTime wantedDate = DateTime.now();
-  String? date;
-  DateTime? startDateFromProvider;
+  DateTime? _selectedDate;
+  String? _date;
 
   Future selectDate({
     required BuildContext context,
@@ -85,19 +83,19 @@ class DatePicker {
       lastDate: materialDatePickerLastDate,
     );
 
-    if (picked != null && picked != selectedDate) selectedDate = picked;
+    if (picked != null && picked != _selectedDate) _selectedDate = picked;
 
     if (picked == null) {
       return;
     }
-    date = preferredDateFormat
-        .format(DateTime.parse(selectedDate.toString().split('T').first));
+    _date = preferredDateFormat
+        .format(DateTime.parse(_selectedDate.toString().split('T').first));
 
-    if (date.runtimeType != String) {
-      date = "";
+    if (_date.runtimeType != String) {
+      _date = "";
     }
 
-    return date;
+    return _date;
   }
 
   /// This builds cupertino date picker in iOS
@@ -124,13 +122,13 @@ class DatePicker {
           minimumDate: cupertinoDatePickerMinimumDate,
           mode: CupertinoDatePickerMode.date,
           onDateTimeChanged: (picked) {
-            if (picked != selectedDate) selectedDate = picked;
+            if (picked != _selectedDate) _selectedDate = picked;
 
-            date = preferredDateFormat.format(
-                DateTime.parse(selectedDate.toString().split('T').first));
+            _date = preferredDateFormat.format(
+                DateTime.parse(_selectedDate.toString().split('T').first));
 
-            if (date.runtimeType != String) {
-              date = "";
+            if (_date.runtimeType != String) {
+              _date = "";
             }
           },
           initialDateTime: cupertinoDateInitialDateTime, //DateTime.now(),
@@ -140,11 +138,8 @@ class DatePicker {
       ),
       onClicked: () {
         Navigator.of(context).pop();
-        //print(date);
-        //return date;
       },
-      //value: date,
     );
-    return date;
+    return _date;
   }
 }
