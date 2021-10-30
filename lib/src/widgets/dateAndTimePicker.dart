@@ -124,7 +124,7 @@ class DateAndTimePicker {
         .format(DateTime.parse(_selectedDate.toString().split('T').first));
 
     if (_date.runtimeType != String) {
-      _date = "";
+      _date = '';
     }
 
     //return [date, DateTime.parse(selectedDate!.toIso8601String())];
@@ -205,7 +205,7 @@ class DateAndTimePicker {
                 DateTime.parse(_selectedDate.toString().split('T').first));
 
             if (_date.runtimeType != String) {
-              _date = "";
+              _date = '';
             }
 
             _hour = _selectedDate!.hour.toString();

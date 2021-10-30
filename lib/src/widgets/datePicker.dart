@@ -97,7 +97,7 @@ class DatePicker {
         .format(DateTime.parse(_selectedDate.toString().split('T').first));
 
     if (_date.runtimeType != String) {
-      _date = "";
+      _date = '';
     }
 
     return _date;
@@ -135,7 +135,7 @@ class DatePicker {
                 DateTime.parse(_selectedDate.toString().split('T').first));
 
             if (_date.runtimeType != String) {
-              _date = "";
+              _date = '';
             }
           },
           initialDateTime: cupertinoDateInitialDateTime, //DateTime.now(),

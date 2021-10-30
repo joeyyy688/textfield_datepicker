@@ -72,11 +72,11 @@ class TextfieldDatePicker extends StatefulWidget {
   //
   final intl.DateFormat preferredDateFormat;
 
-  //The builder parameter can be used to wrap the dialog widget to add inherited widgets like Theme.(for more info. on applying theme visit -- https://api.flutter.dev/flutter/material/Theme-class.html)
+  //The [materialDatePickerBuilder] parameter can be used to wrap the dialog widget to add inherited widgets like Theme.(for more info. on applying theme visit -- https://api.flutter.dev/flutter/material/Theme-class.html)
   //
   final Widget Function(BuildContext, Widget?)? materialDatePickerBuilder;
 
-  //An optional locale argument can be used to set the locale for the date picker. It defaults to the ambient locale provided by Localizations. visit -- https://api.flutter.dev/flutter/widgets/Localizations-class.html for more info. on localization
+  //[materialDatePickerLocale] optional locale argument can be used to set the locale for the date picker. It defaults to the ambient locale provided by Localizations. visit -- https://api.flutter.dev/flutter/widgets/Localizations-class.html for more info. on localization
   //
   final Locale? materialDatePickerLocale;
 
@@ -100,15 +100,16 @@ class TextfieldDatePicker extends StatefulWidget {
   //
   final DateTime cupertinoDatePickerMaximumDate;
 
-  //The minimum selectable date that the picker can settle on.
+  //[cupertinoDatePickerMinimumDate] is the selectable date that the picker can settle on.
   //
   final DateTime cupertinoDatePickerMinimumDate;
 
-  //Minimum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Defaults to 1 and must not be null.
+  //[cupertinoDatePickerMinimumYear] is the minimum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Defaults to 1 and must not be null.
   //
   final int cupertinoDatePickerMinimumYear;
 
-  //Maximum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Null if there's no limit.
+  //[cupertinoDatePickerMaximumYear] is the maximum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Null if there's no limit.
+  //
   final int? cupertinoDatePickerMaximumYear;
 
   //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
