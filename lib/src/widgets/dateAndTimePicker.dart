@@ -96,8 +96,7 @@ class DateAndTimePicker {
     required bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
     required TimeOfDay materialInitialTime,
     required Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
-    required TimePickerEntryMode
-        materialTimePickerInitialEntryMode, //= TimePickerEntryMode.dial
+    required TimePickerEntryMode materialTimePickerInitialEntryMode,
   }) async {
     // Calling of [showDatePicker] widget
     //
@@ -126,8 +125,6 @@ class DateAndTimePicker {
     if (_date.runtimeType != String) {
       _date = '';
     }
-
-    //return [date, DateTime.parse(selectedDate!.toIso8601String())];
 
     // Calling of [showTimePicker] widget
     //

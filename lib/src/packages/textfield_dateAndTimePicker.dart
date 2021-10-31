@@ -2,8 +2,16 @@ library textfield_datepicker;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:textfield_datepicker/src/widgets/dateAndTimePicker.dart';
 import 'package:intl/intl.dart' as intl;
+
+import 'package:textfield_datepicker/src/widgets/dateAndTimePicker.dart';
+
+//A widget(TextfieldDateAndTimePicker) that gives access to [CupertinoDatePicker], [showDatePicker] and [showTimePicker] based on the device platform.
+//
+//Date and Time picked is shown in a Material [TextFormField].
+//
+//This widget gives access to most [TextFormField] parameters allowing you to design your textfield based on your preference
+//
 
 class TextfieldDateAndTimePicker extends StatefulWidget {
   //-----------------------Starting from this section...
@@ -39,8 +47,6 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   //In [calendar] mode, a calendar grid is displayed and the user taps the day they wish to select.
   //
   //In [input] mode a TextField] is displayed and the user types in the date they wish to select.
-  //
-  //[calendarOnly] and [inputOnly] are variants of the above that don't allow the user to change to the mode.
   //
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
 
@@ -90,6 +96,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   final bool materialTimePickerUse24hrFormat;
 
   //The [materialTimePickerInitialEntryMode] parameter can be used to determine the initial time entry selection of the picker (either a clock dial or text input).
+  //
   final TimePickerEntryMode materialTimePickerInitialEntryMode;
 
   //The [materialTimePickerBuilder] parameter can be used to wrap the dialog widget to add inherited widgets like Localizations.override, Directionality, or MediaQuery.
@@ -123,6 +130,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
   //
   // Defaults to null, which disables background painting entirely.
+  //
   final Color? cupertinoDatePickerBackgroundColor;
 
   //A [cupertinoDatePickerKey] is an identifier for [CupertinoDatePicker Widgets, Elements, and SemanticsNodes].

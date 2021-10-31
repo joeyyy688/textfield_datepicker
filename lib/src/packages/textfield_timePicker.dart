@@ -1,8 +1,15 @@
 library textfield_datepicker;
 
 import 'package:flutter/material.dart';
+
 import 'package:textfield_datepicker/src/widgets/time_picker.dart';
 
+//A widget(TextfieldTimePicker) that gives access to both [CupertinoDatePicker] and [showTimePicker] based on the device platform.
+//
+//Time picked is shown in a Material [TextFormField].
+//
+//This widget gives access to most [TextFormField] parameters allowing you to design your textfield based on your preference
+//
 class TextfieldTimePicker extends StatefulWidget {
   //-----------------------Starting from this section...
   //
@@ -32,19 +39,60 @@ class TextfieldTimePicker extends StatefulWidget {
   //
   //-----------------------------------------  ...to the elements on top of this section contains [TextFormField] elements which should be quite familiar to you (if not visit https://api.flutter.dev/flutter/material/TextFormField-class.html for more info)
 
-  final bool materialTimePickerUse24hrFormat;
-  final Color? cupertinoDatePickerBackgroundColor;
-  final Key? cupertinoDatePickerKey;
-  final DateTime? cupertinoDateInitialDateTime;
-  final num textfieldDatePickerWidth;
-  final EdgeInsetsGeometry? textfieldDateTimePickerMargin;
-  final EdgeInsetsGeometry? textfieldDateTimePickerPadding;
-  final DatePickerEntryMode materialDatePickerInitialEntryMode;
+  // When the time picker is first displayed, it will have [materialInitialTime], as the time selected.
+  //
   final TimeOfDay materialInitialTime;
-  final Widget Function(BuildContext, Widget?)? materialTimePickerBuilder;
+
+  //By default [materialTimePickerUse24hrFormat] is false.
+  //
+  final bool materialTimePickerUse24hrFormat;
+
+  //The [materialTimePickerInitialEntryMode] parameter can be used to determine the initial time entry selection of the picker (either a clock dial or text input).
+  //
   final TimePickerEntryMode materialTimePickerInitialEntryMode;
+
+  //The [materialTimePickerBuilder] parameter can be used to wrap the dialog widget to add inherited widgets like Localizations.override, Directionality, or MediaQuery.
+  //
+  final Widget Function(BuildContext, Widget?)? materialTimePickerBuilder;
+
+  //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
+  //
+  // Defaults to null, which disables background painting entirely.
+  //
+  final Color? cupertinoDatePickerBackgroundColor;
+
+  //A [cupertinoDatePickerKey] is an identifier for [CupertinoDatePicker Widgets, Elements, and SemanticsNodes].
+  //
+  final Key? cupertinoDatePickerKey;
+
+  //The [cupertinoDateInitialDateTime] initial date and/or time of the picker.
+  //Defaults to the present date and time and must not be null.
+  //The present must conform to the intervals set in [cupertinoDatePickerMinimumDate], [cupertinoDatePickerMaximumDate], [cupertinoDatePickerMinimumYear], and [cupertinoDatePickerMaximumYear].
+  //
+  final DateTime? cupertinoDateInitialDateTime;
+
+  //By default [cupertinoTimePickerUse24hFormat] is false.
+  //
   final bool cupertinoTimePickerUse24hFormat;
+
+  //The granularity of the minutes spinner, if it is shown in the current mode. Must be an integer factor of 60
+  //
   final int cupertinoTimePickerMinuteInterval;
+
+  //[textfieldTimePickerWidth] gives you the option to adjust the width of the [TextfieldTimePicker]
+  //[textfieldTimePickerWidth] defaults to 84, which is 84 percent of the available screen width
+  //
+  final num textfieldTimePickerWidth;
+
+  //[textfieldTimePickerMargin] allows you to add some margin to the [TextfieldTimePicker].
+  //By default it has a preset value of [const EdgeInsets.symmetric(vertical: 10, horizontal: 0)], but can be adjusted based on preference/choice.
+  //
+  final EdgeInsetsGeometry? textfieldTimePickerMargin;
+
+  //[textfieldTimePickerPadding] allows you to add some padding to the [TextfieldTimePicker], quite similar to [textfieldTimePickerMargin].
+  //Again, by default a preset value of [const EdgeInsets.symmetric(horizontal: 5, vertical: 0)], but can be modified based on preference/choice.
+  //
+  final EdgeInsetsGeometry? textfieldTimePickerPadding;
 
   TextfieldTimePicker({
     Key? key,
@@ -71,15 +119,14 @@ class TextfieldTimePicker extends StatefulWidget {
     this.textDirection,
     this.textInputAction,
     this.focusNode,
-    this.materialDatePickerInitialEntryMode = DatePickerEntryMode.calendar,
     this.materialTimePickerUse24hrFormat = false,
     required this.cupertinoDatePickerBackgroundColor,
     this.cupertinoDatePickerKey,
     required this.cupertinoDateInitialDateTime,
-    this.textfieldDatePickerWidth = 84,
-    this.textfieldDateTimePickerMargin =
+    this.textfieldTimePickerWidth = 84,
+    this.textfieldTimePickerMargin =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-    this.textfieldDateTimePickerPadding =
+    this.textfieldTimePickerPadding =
         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
     required this.materialInitialTime,
     this.materialTimePickerBuilder,
@@ -97,9 +144,9 @@ class _TextfieldTimePickerState extends State<TextfieldTimePicker> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width *
-          (widget.textfieldDatePickerWidth / 100),
-      margin: widget.textfieldDateTimePickerMargin,
-      padding: widget.textfieldDateTimePickerPadding,
+          (widget.textfieldTimePickerWidth / 100),
+      margin: widget.textfieldTimePickerMargin,
+      padding: widget.textfieldTimePickerPadding,
       child: TextFormField(
         key: widget.key,
         showCursor: false,
@@ -109,8 +156,6 @@ class _TextfieldTimePickerState extends State<TextfieldTimePicker> {
           TimePicker()
               .selectTime(
             context: context,
-            materialDatePickerInitialEntryMode:
-                widget.materialDatePickerInitialEntryMode,
             materialInitialTime: widget.materialInitialTime,
             materialTimePickerUse24hrFormat:
                 widget.materialTimePickerUse24hrFormat,

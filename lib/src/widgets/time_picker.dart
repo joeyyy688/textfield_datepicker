@@ -12,7 +12,6 @@ class TimePicker {
   Future selectTime({
     required BuildContext context,
     required bool materialTimePickerUse24hrFormat,
-    required DatePickerEntryMode materialDatePickerInitialEntryMode,
     required TimeOfDay materialInitialTime,
     required TimePickerEntryMode materialTimePickerInitialEntryMode,
     Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
@@ -60,8 +59,7 @@ class TimePicker {
     required bool materialTimePickerUse24hrFormat,
     required TimeOfDay materialInitialTime,
     required Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
-    required TimePickerEntryMode
-        materialTimePickerInitialEntryMode, //= TimePickerEntryMode.dial
+    required TimePickerEntryMode materialTimePickerInitialEntryMode,
   }) async {
     // Calling of [showTimePicker] widget
     //

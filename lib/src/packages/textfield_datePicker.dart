@@ -10,8 +10,9 @@ import 'package:textfield_datepicker/src/widgets/datePicker.dart';
 //
 //Date picked is shown in a Material [TextFormField].
 //
-//This widget gives access to most [TextFormField] elements allowing you to design your textfield based on your preference
+//This widget gives access to most [TextFormField] parameters allowing you to design your textfield based on your preference
 //
+
 class TextfieldDatePicker extends StatefulWidget {
   //-----------------------Starting from this section...
   //
@@ -46,8 +47,6 @@ class TextfieldDatePicker extends StatefulWidget {
   //In [calendar] mode, a calendar grid is displayed and the user taps the day they wish to select.
   //
   //In [input] mode a TextField] is displayed and the user types in the date they wish to select.
-  //
-  //[calendarOnly] and [inputOnly] are variants of the above that don't allow the user to change to the mode.
   //
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
 
