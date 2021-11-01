@@ -115,7 +115,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   //
   final DateTime cupertinoDatePickerMaximumDate;
 
-  //[cupertinoDatePickerMinimumDate] is the selectable date that the picker can settle on.
+  //[cupertinoDatePickerMinimumDate] is the minimum selectable date that the picker can settle on.
   //
   final DateTime cupertinoDatePickerMinimumDate;
 

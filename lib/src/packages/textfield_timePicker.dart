@@ -39,7 +39,7 @@ class TextfieldTimePicker extends StatefulWidget {
   //
   //-----------------------------------------  ...to the elements on top of this section contains [TextFormField] elements which should be quite familiar to you (if not visit https://api.flutter.dev/flutter/material/TextFormField-class.html for more info)
 
-  // When the time picker is first displayed, it will have [materialInitialTime], as the time selected.
+  //When the time picker is first displayed, it will have [materialInitialTime], as the time selected.
   //
   final TimeOfDay materialInitialTime;
 
