@@ -14,7 +14,6 @@ These three widgets earlier mentioned gives you access to most of Material TextF
 *See [example](https://github.com/joeyyy688/textfield_datepicker/tree/master/example) for details of how this package works*
 
 ## Installation
-#
 
 Add the textfield_datepicker package to your `pubspec.yml` file.
 
@@ -38,7 +37,6 @@ import 'package:textfield_datepicker/textfield_timePicker.dart';
 ```
 
 ## Usage
-#
 ### TextfieldDatePicker
 
 | Property | Default | Description ||
