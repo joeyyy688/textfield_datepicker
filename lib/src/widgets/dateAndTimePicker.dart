@@ -41,6 +41,7 @@ class DateAndTimePicker {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
+      case TargetPlatform.android:
         return _buildMaterialDateAndTimePicker(
           context: context,
           materialDatePickerBuilder: materialDatePickerBuilder,
@@ -62,7 +63,6 @@ class DateAndTimePicker {
 
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-      case TargetPlatform.android:
         return _buildCupertinoDateAndTimePicker(
           context: context,
           preferredDateFormat: preferredDateFormat,
