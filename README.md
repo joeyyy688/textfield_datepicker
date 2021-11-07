@@ -9,17 +9,17 @@ These three widgets earlier mentioned gives you access to most of Material TextF
 ## Screenshots of how it work
 
 
-![Image1](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDateAndTimePicker(material).gif)
+![Image1](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDateAndTimePicker(material).gif)
 
-![Image2](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDatePicker(ios).gif)
+![Image2](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDatePicker(ios).gif)
 
-![Image3](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDatePicker(material).gif)
+![Image3](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDatePicker(material).gif)
 
-![Image4](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDateTimePicker(ios).gif)
+![Image4](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDateTimePicker(ios).gif)
 
-![Image5](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldTimePicker(ios).gif)
+![Image5](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldTimePicker(ios).gif)
 
-![Image6](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldTimePicker(material).gif)
+![Image6](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldTimePicker(material).gif)
 
 
 
