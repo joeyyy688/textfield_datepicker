@@ -135,8 +135,9 @@ class DateAndTimePicker {
       initialEntryMode: materialTimePickerInitialEntryMode,
     );
 
+    // Condition to check if time is picked or not
     if (timePicked != null) {
-      _hour = timePicked.hour.toString();
+      _hour = timePicked.hour.toString().padLeft(2, '0');
 
       //[_hourTracker] is used to keep track of the hour picked
       //This variable is later used to display the time period based on [materialTimePickerUse24hrFormat] value
@@ -145,6 +146,8 @@ class DateAndTimePicker {
 
       if (!materialTimePickerUse24hrFormat && int.parse(_hour!) > 12) {
         _hour = (int.parse(_hour!) - 12).toString();
+      } else if (!materialTimePickerUse24hrFormat && int.parse(_hour!) == 0) {
+        _hour = (int.parse(_hour!) + 12).toString();
       }
 
       if (!materialTimePickerUse24hrFormat && int.parse(_hourTracker!) >= 12) {
@@ -155,7 +158,7 @@ class DateAndTimePicker {
         _period = 'AM';
       }
 
-      _minute = timePicked.minute.toString();
+      _minute = timePicked.minute.toString().padLeft(2, '0');
 
       _time = _hour! + ':' + _minute!;
     }
@@ -205,7 +208,7 @@ class DateAndTimePicker {
               _date = '';
             }
 
-            _hour = _selectedDate!.hour.toString();
+            _hour = _selectedDate!.hour.toString().padLeft(2, '0');
 
             //[_hourTracker] is used to keep track of the hour picked
             //This variable is later used to display the time period based on [cupertinoDatePickerUse24hFormat] value
@@ -214,6 +217,9 @@ class DateAndTimePicker {
 
             if (!cupertinoTimePickerUse24hFormat && int.parse(_hour!) > 12) {
               _hour = (int.parse(_hour!) - 12).toString();
+            } else if (!cupertinoTimePickerUse24hFormat &&
+                int.parse(_hour!) == 0) {
+              _hour = (int.parse(_hour!) + 12).toString();
             }
 
             if (!cupertinoTimePickerUse24hFormat &&
@@ -225,7 +231,7 @@ class DateAndTimePicker {
               _period = 'AM';
             }
 
-            _minute = _selectedDate!.minute.toString();
+            _minute = _selectedDate!.minute.toString().padLeft(2, '0');
 
             _time = _hour! + ':' + _minute!;
 
