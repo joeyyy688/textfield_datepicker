@@ -1,5 +1,5 @@
 name: textfield_datepicker
-description: A new Flutter package project.
+description: TextfieldDatePicker, TextfieldDateAndTimePicker, and TextfieldTimePicker are three flutter widgets that you can use together. These widgets provide you access to different platform date and time pickers depending on your device platform.
 version: 0.0.1
 homepage: https://github.com/joeyyy688/textfield_datepicker
 
