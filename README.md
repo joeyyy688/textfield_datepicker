@@ -7,10 +7,19 @@ The date or time picked is shown in a Material TextFormField widget.
 These three widgets earlier mentioned gives you access to most of Material TextFormField parameters allowing you to design your textfield based on your preference
 
 ## Screenshots of how it work
+
+
 ![Image1](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDateAndTimePicker(material).gif)
 
-![Image1](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDatePicker(ios).gif)
+![Image2](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDatePicker(ios).gif)
 
+![Image3](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDatePicker(material).gif)
+
+![Image4](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldDateTimePicker(ios).gif)
+
+![Image5](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldTimePicker(ios).gif)
+
+![Image6](https://github.com/joeyyy688/textfield_datepicker/blob/master/screenshots/textfieldTimePicker(material).gif)
 
 *See [example](https://github.com/joeyyy688/textfield_datepicker/tree/master/example) for details of how this package works*
 
