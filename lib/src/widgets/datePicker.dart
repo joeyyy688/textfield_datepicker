@@ -63,9 +63,9 @@ class DatePicker {
     }
   }
 
-  /// This builds material date picker in Android
+  //// This builds material date picker in Android
   Future _buildMaterialDatePicker({
-    // The returned [Future] resolves to the date selected by the user when the user confirms the dialog. If the user cancels the dialog, null is returned.
+    /// The returned [Future] resolves to the date selected by the user when the user confirms the dialog. If the user cancels the dialog, null is returned.
     required BuildContext context,
     required DateTime materialDatePickerInitialDate,
     required DateTime materialDatePickerFirstDate,
@@ -76,7 +76,7 @@ class DatePicker {
     required Locale? materialDatePickerLocale,
     required bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
   }) async {
-    //Shows a dialog containing a Material Design date picker.
+    ///Shows a dialog containing a Material Design date picker.
     DateTime? picked = await showDatePicker(
       builder: materialDatePickerBuilder,
       initialEntryMode: materialDatePickerInitialEntryMode,
@@ -103,7 +103,7 @@ class DatePicker {
     return _date;
   }
 
-  /// This builds cupertino date picker in iOS
+  //// This builds cupertino date picker in iOS
   Future<String?> _buildCupertinoDatePicker({
     required BuildContext context,
     Key? key,
@@ -116,7 +116,7 @@ class DatePicker {
     required DateTime? cupertinoDateInitialDateTime,
     DatePickerDateOrder? cupertinoDateOrder,
   }) async {
-    // ignore: unused_local_variable
+    /// ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
       child: Container(
@@ -138,7 +138,9 @@ class DatePicker {
               _date = '';
             }
           },
-          initialDateTime: cupertinoDateInitialDateTime, //DateTime.now(),
+          initialDateTime: cupertinoDateInitialDateTime,
+
+          ///DateTime.now(),
           minimumYear: cupertinoDatePickerMinimumYear,
           maximumYear: cupertinoDatePickerMaximumYear,
         ),

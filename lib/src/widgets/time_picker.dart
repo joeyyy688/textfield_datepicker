@@ -22,8 +22,9 @@ class TimePicker {
     Key? cupertinoTimePickerKey,
   }) async {
     final ThemeData theme = Theme.of(context);
-    // Condition to check platform version and render widget
-    //
+
+    /// Condition to check platform version and render widget
+    ///
     switch (theme.platform) {
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
@@ -52,8 +53,8 @@ class TimePicker {
     }
   }
 
-  // This builds material date picker in Android
-  //
+  /// This builds material date picker in Android
+  ///
   Future _buildMaterialTimePicker({
     required BuildContext context,
     required bool materialTimePickerUse24hrFormat,
@@ -61,8 +62,8 @@ class TimePicker {
     required Widget Function(BuildContext, Widget?)? materialTimePickerBuilder,
     required TimePickerEntryMode materialTimePickerInitialEntryMode,
   }) async {
-    // Calling of [showTimePicker] widget
-    //
+    /// Calling of [showTimePicker] widget
+    ///
     final TimeOfDay? timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
@@ -70,13 +71,13 @@ class TimePicker {
       initialEntryMode: materialTimePickerInitialEntryMode,
     );
 
-    // Condition to check if time is picked or not
+    /// Condition to check if time is picked or not
     if (timePicked != null) {
       _hour = timePicked.hour.toString().padLeft(2, '0');
 
-      //[_hourTracker] is used to keep track of the hour picked
-      //This variable is later used to display the time period based on [materialTimePickerUse24hrFormat] value
-      //
+      ///[_hourTracker] is used to keep track of the hour picked
+      ///This variable is later used to display the time period based on [materialTimePickerUse24hrFormat] value
+      ///
       _hourTracker = _hour;
 
       if (!materialTimePickerUse24hrFormat && int.parse(_hour!) > 12) {
@@ -103,8 +104,8 @@ class TimePicker {
     return _time;
   }
 
-  // This builds cupertino date picker in iOS
-  //
+  /// This builds cupertino date picker in iOS
+  ///
   Future<String?> _buildCupertinoTimePicker({
     required BuildContext context,
     Key? key,
@@ -113,7 +114,7 @@ class TimePicker {
     required int cupertinoTimePickerMinuteInterval,
     required bool cupertinoTimePickerUse24hFormat,
   }) async {
-    // ignore: unused_local_variable
+    /// ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
       child: Container(
@@ -129,9 +130,9 @@ class TimePicker {
 
             _hour = _selectedDate!.hour.toString().padLeft(2, '0');
 
-            //[_hourTracker] is used to keep track of the hour picked
-            //This variable is later used to display the time period based on [cupertinoDatePickerUse24hFormat] value
-            //
+            ///[_hourTracker] is used to keep track of the hour picked
+            ///This variable is later used to display the time period based on [cupertinoDatePickerUse24hFormat] value
+            ///
             _hourTracker = _hour;
 
             if (!cupertinoTimePickerUse24hFormat && int.parse(_hour!) > 12) {

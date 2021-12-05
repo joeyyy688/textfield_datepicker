@@ -6,16 +6,16 @@ import 'package:intl/intl.dart' as intl;
 
 import 'package:textfield_datepicker/src/widgets/datePicker.dart';
 
-//A widget(TextfieldDatePicker) that gives access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
-//
-//Date picked is shown in a Material [TextFormField].
-//
-//This widget gives access to most [TextFormField] parameters allowing you to design your textfield based on your preference
-//
+///A widget(TextfieldDatePicker) that gives access to both [CupertinoDatePicker] and [showDatePicker] based on the device platform.
+///
+///Date picked is shown in a Material [TextFormField].
+///
+///This widget gives access to most [TextFormField] parameters allowing you to design your textfield based on your preference
+///
 
 class TextfieldDatePicker extends StatefulWidget {
-  //-----------------------Starting from this section...
-  //
+  ///-----------------------Starting from this section...
+  ///
   final TextEditingController textfieldDatePickerController;
   final Iterable<String>? autofillHints;
   final AutovalidateMode? autovalidateMode;
@@ -39,110 +39,111 @@ class TextfieldDatePicker extends StatefulWidget {
   final TextDirection? textDirection;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
-  //
-  //-----------------------------------------  ...to the elements on top of this section contains [TextFormField] elements which should be quite familiar to you (if not visit https://api.flutter.dev/flutter/material/TextFormField-class.html for more info)
 
-  // By default the [materialDatePickerInitialEntryMode]  is [DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar]
-  //
-  //In [calendar] mode, a calendar grid is displayed and the user taps the day they wish to select.
-  //
-  //In [input] mode a TextField] is displayed and the user types in the date they wish to select.
-  //
+  ///
+  ///-----------------------------------------  ...to the elements on top of this section contains [TextFormField] elements which should be quite familiar to you (if not visit http://api.flutter.dev/flutter/material/TextFormField-class.html for more info)
+
+  /// By default the [materialDatePickerInitialEntryMode]  is [DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar]
+  ///
+  ///In [calendar] mode, a calendar grid is displayed and the user taps the day they wish to select.
+  ///
+  ///In [input] mode a TextField] is displayed and the user types in the date they wish to select.
+  ///
   final DatePickerEntryMode materialDatePickerInitialEntryMode;
 
-  //The [materialDatePickerFirstDate] is the earliest allowable date.
-  //
+  ///The [materialDatePickerFirstDate] is the earliest allowable date.
+  ///
   final DateTime materialDatePickerFirstDate;
 
-  // When the date picker is first displayed, it will show the month of [materialDatePickerInitialDate], with [materialDatePickerInitialDate] selected.
-  //
+  /// When the date picker is first displayed, it will show the month of [materialDatePickerInitialDate], with [materialDatePickerInitialDate] selected.
+  ///
   final DateTime materialDatePickerInitialDate;
 
-  //The [materialDatePickerLastDate] is the latest allowable date.
-  //
-  //[materialDatePickerInitialDate] must either fall between these dates([materialDatePickerFirstDate] and [materialDatePickerLastDate]), or be equal to one of them.
-  //For each of these DateTime parameters, only their dates are considered.
-  //Their time fields are ignored. They must all be non-null.
-  //
+  ///The [materialDatePickerLastDate] is the latest allowable date.
+  ///
+  ///[materialDatePickerInitialDate] must either fall between these dates([materialDatePickerFirstDate] and [materialDatePickerLastDate]), or be equal to one of them.
+  ///For each of these DateTime parameters, only their dates are considered.
+  ///Their time fields are ignored. They must all be non-null.
+  ///
   final DateTime materialDatePickerLastDate;
 
-  //[preferredDateFormat] is for formatting and parsing dates in a locale-sensitive manner.
-  // For more info. on DateFormat visit -- https://api.flutter.dev/flutter/intl/DateFormat-class.html
-  //
+  ///[preferredDateFormat] is for formatting and parsing dates in a locale-sensitive manner.
+  /// For more info. on DateFormat visit -- http://api.flutter.dev/flutter/intl/DateFormat-class.html
+  ///
   final intl.DateFormat preferredDateFormat;
 
-  //The [materialDatePickerBuilder] parameter can be used to wrap the dialog widget to add inherited widgets like Theme.(for more info. on applying theme visit -- https://api.flutter.dev/flutter/material/Theme-class.html)
-  //
+  ///The [materialDatePickerBuilder] parameter can be used to wrap the dialog widget to add inherited widgets like Theme.(for more info. on applying theme visit -- http://api.flutter.dev/flutter/material/Theme-class.html)
+  ///
   final Widget Function(BuildContext, Widget?)? materialDatePickerBuilder;
 
-  //[materialDatePickerLocale] optional locale argument can be used to set the locale for the date picker. It defaults to the ambient locale provided by Localizations. visit -- https://api.flutter.dev/flutter/widgets/Localizations-class.html for more info. on localization
-  //
+  ///[materialDatePickerLocale] optional locale argument can be used to set the locale for the date picker. It defaults to the ambient locale provided by Localizations. visit -- http://api.flutter.dev/flutter/widgets/Localizations-class.html for more info. on localization
+  ///
   final Locale? materialDatePickerLocale;
 
-  //An optional [materialDatePickerSelectableDayPredicate] function can be passed in to only allow certain days for selection.
-  //
-  //If provided, only the days that [materialDatePickerSelectableDayPredicate] returns true for will be selectable.
-  //
-  //For example, this can be used to only allow weekdays for selection. If provided, it must return true for [materialDatePickerInitialDate].
-  //
+  ///An optional [materialDatePickerSelectableDayPredicate] function can be passed in to only allow certain days for selection.
+  ///
+  ///If provided, only the days that [materialDatePickerSelectableDayPredicate] returns true for will be selectable.
+  ///
+  ///For example, this can be used to only allow weekdays for selection. If provided, it must return true for [materialDatePickerInitialDate].
+  ///
   final bool Function(DateTime)? materialDatePickerSelectableDayPredicate;
 
-  //[cupertinoDatePickerMaximumDate] The maximum selectable date that the picker can settle on.
-  //
-  //When non-null, the user can still scroll the picker to [DateTime]s later than [cupertinoDatePickerMaximumDate], but the [onDateTimeChanged] will not be called on these [DateTime]s.
-  //
-  //Once let go, the picker will scroll back to [cupertinoDatePickerMaximumDate].
-  //
-  //Typically [cupertinoDatePickerMaximumDate] needs to be set to a [DateTime] that is on the same date as [cupertinoDateInitialDateTime].
-  //
-  //Defaults to null. When set to null, the picker does not impose a limit on the latest [DateTime] the user can select.
-  //
+  ///[cupertinoDatePickerMaximumDate] The maximum selectable date that the picker can settle on.
+  ///
+  ///When non-null, the user can still scroll the picker to [DateTime]s later than [cupertinoDatePickerMaximumDate], but the [onDateTimeChanged] will not be called on these [DateTime]s.
+  ///
+  ///Once let go, the picker will scroll back to [cupertinoDatePickerMaximumDate].
+  ///
+  ///Typically [cupertinoDatePickerMaximumDate] needs to be set to a [DateTime] that is on the same date as [cupertinoDateInitialDateTime].
+  ///
+  ///Defaults to null. When set to null, the picker does not impose a limit on the latest [DateTime] the user can select.
+  ///
   final DateTime cupertinoDatePickerMaximumDate;
 
-  //[cupertinoDatePickerMinimumDate] is the minimum selectable date that the picker can settle on.
-  //
+  ///[cupertinoDatePickerMinimumDate] is the minimum selectable date that the picker can settle on.
+  ///
   final DateTime cupertinoDatePickerMinimumDate;
 
-  //[cupertinoDatePickerMinimumYear] is the minimum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Defaults to 1 and must not be null.
-  //
+  ///[cupertinoDatePickerMinimumYear] is the minimum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Defaults to 1 and must not be null.
+  ///
   final int cupertinoDatePickerMinimumYear;
 
-  //[cupertinoDatePickerMaximumYear] is the maximum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Null if there's no limit.
-  //
+  ///[cupertinoDatePickerMaximumYear] is the maximum year that the picker can be scrolled to in CupertinoDatePickerMode.date mode. Null if there's no limit.
+  ///
   final int? cupertinoDatePickerMaximumYear;
 
-  //[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
-  //
-  // Defaults to null, which disables background painting entirely.
+  ///[cupertinoDatePickerBackgroundColor] Background color of cupertinoDatePicker.
+  ///
+  /// Defaults to null, which disables background painting entirely.
   final Color? cupertinoDatePickerBackgroundColor;
 
-  //A [cupertinoDatePickerKey] is an identifier for [CupertinoDatePicker Widgets, Elements, and SemanticsNodes].
-  //
+  ///A [cupertinoDatePickerKey] is an identifier for [CupertinoDatePicker Widgets, Elements, and SemanticsNodes].
+  ///
   final Key? cupertinoDatePickerKey;
 
-  //The [cupertinoDateInitialDateTime] initial date and/or time of the picker.
-  //Defaults to the present date and time and must not be null.
-  //The present must conform to the intervals set in [cupertinoDatePickerMinimumDate], [cupertinoDatePickerMaximumDate], [cupertinoDatePickerMinimumYear], and [cupertinoDatePickerMaximumYear].
-  //
+  ///The [cupertinoDateInitialDateTime] initial date and/or time of the picker.
+  ///Defaults to the present date and time and must not be null.
+  ///The present must conform to the intervals set in [cupertinoDatePickerMinimumDate], [cupertinoDatePickerMaximumDate], [cupertinoDatePickerMinimumYear], and [cupertinoDatePickerMaximumYear].
+  ///
   final DateTime? cupertinoDateInitialDateTime;
 
-  //[cupertinoDateOrder] determines the order of the columns inside [CupertinoDatePicker] in date mode. Defaults to the locale's default date format/order.
-  //
+  ///[cupertinoDateOrder] determines the order of the columns inside [CupertinoDatePicker] in date mode. Defaults to the locale's default date format/order.
+  ///
   final DatePickerDateOrder? cupertinoDateOrder;
 
-  //[textfieldDatePickerWidth] gives you the option to adjust the width of the [TextfieldDatePicker]
-  //[textfieldDatePickerWidth] defaults to 84, which is 84 percent of the available screen width
-  //
+  ///[textfieldDatePickerWidth] gives you the option to adjust the width of the [TextfieldDatePicker]
+  ///[textfieldDatePickerWidth] defaults to 84, which is 84 percent of the available screen width
+  ///
   final num textfieldDatePickerWidth;
 
-  //[textfieldDatePickerMargin] allows you to add some margin to the [TextfieldDatePicker].
-  //By default it has a preset value of [const EdgeInsets.symmetric(vertical: 10, horizontal: 0)], but can be adjusted based on preference/choice.
-  //
+  ///[textfieldDatePickerMargin] allows you to add some margin to the [TextfieldDatePicker].
+  ///By default it has a preset value of [const EdgeInsets.symmetric(vertical: 10, horizontal: 0)], but can be adjusted based on preference/choice.
+  ///
   final EdgeInsetsGeometry? textfieldDatePickerMargin;
 
-  //[textfieldDatePickerPadding] allows you to add some padding to the [TextfieldDatePicker], quite similar to [textfieldDatePickerMargin].
-  //Again, by default a preset value of [const EdgeInsets.symmetric(horizontal: 5, vertical: 0)], but can be modified based on preference/choice.
-  //
+  ///[textfieldDatePickerPadding] allows you to add some padding to the [TextfieldDatePicker], quite similar to [textfieldDatePickerMargin].
+  ///Again, by default a preset value of [const EdgeInsets.symmetric(horizontal: 5, vertical: 0)], but can be modified based on preference/choice.
+  ///
   final EdgeInsetsGeometry? textfieldDatePickerPadding;
 
   TextfieldDatePicker({
@@ -211,7 +212,7 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
         showCursor: false,
         readOnly: true,
         onTap: () {
-          ///Call the Date Picker Method
+          ////Call the Date Picker Method
           DatePicker()
               .selectDate(
             context: context,
@@ -248,7 +249,8 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
                     value == null ? "" : value;
               });
             }
-            //DateTime.parse(value!.toIso8601String()); ----- to convert date to this type of format 2021-10-18T09:36:02.068Z. This is because some APIS may not accept the type of Date format you will be passing to [preferredDateFormat]
+
+            ///DateTime.parse(value!.toIso8601String()); ----- to convert date to this type of format 2021-10-18T09:36:02.068Z. This is because some APIS may not accept the type of Date format you will be passing to [preferredDateFormat]
           });
         },
         focusNode: widget.focusNode,

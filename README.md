@@ -31,7 +31,7 @@ Add the textfield_datepicker package to your `pubspec.yml` file.
 
 ```yml
 dependencies:
-  textfield_datepicker: ^0.0.1
+  textfield_datepicker: ^0.0.2
 ```
 
 Import the package into your dart file

@@ -1,3 +1,7 @@
+## [0.0.2]
+* Updated documentation in codes
+
+
 ## [0.0.1]
 #
 * Created textfield_datePicker
