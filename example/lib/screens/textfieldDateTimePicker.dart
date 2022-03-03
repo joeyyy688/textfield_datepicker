@@ -15,7 +15,7 @@ class TextFieldDateTimePicker extends StatefulWidget {
 }
 
 class _TextFieldDateTimePickerState extends State<TextFieldDateTimePicker> {
-  final TextEditingController _controller = TextEditingController();
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +78,7 @@ class _TextFieldDateTimePickerState extends State<TextFieldDateTimePicker> {
                       width: 0,
                       color: Colors.white,
                     )),
-                hintText: "Select Date",
+                hintText: 'Select Date',
                 hintStyle: TextStyle(
                     fontSize: displayWidth(context) * 0.04,
                     fontWeight: FontWeight.normal),
@@ -90,15 +90,6 @@ class _TextFieldDateTimePickerState extends State<TextFieldDateTimePicker> {
               ),
               materialInitialTime: TimeOfDay.now(),
             ),
-            // const SizedBox(
-            //   height: 50,
-            // ),
-            // ElevatedButton(
-            //   child: const Text('See Next Page for Example 2'),
-            //   onPressed: () {
-            //     //Navigator.of(context).pushNamed(TextFieldDatePicker2.routeName);
-            //   },
-            // )
           ],
         ),
       ),

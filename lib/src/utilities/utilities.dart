@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class Utils {
   Future showSheet(
     BuildContext context, {
     required Widget child,
-    required String? Function() onClicked,
+    required Function() onClicked,
   }) =>
       showCupertinoModalPopup(
         context: context,

@@ -73,7 +73,7 @@ class _TextFieldDatePicker2State extends State<TextFieldDatePicker2> {
                       width: 0,
                       color: Colors.white,
                     )),
-                hintText: "Select Date",
+                hintText: 'Select Date',
                 hintStyle: TextStyle(
                     fontSize: displayWidth(context) * 0.04,
                     fontWeight: FontWeight.normal),

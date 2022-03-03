@@ -21,7 +21,7 @@ class TimePicker {
     Color? cupertinoDatePickerBackgroundColor,
     Key? cupertinoTimePickerKey,
   }) async {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     /// Condition to check platform version and render widget
     ///
@@ -64,7 +64,7 @@ class TimePicker {
   }) async {
     /// Calling of [showTimePicker] widget
     ///
-    final TimeOfDay? timePicked = await showTimePicker(
+    final timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
       builder: materialTimePickerBuilder,

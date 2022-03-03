@@ -16,7 +16,7 @@ class TextFieldDatePickerDemo1 extends StatefulWidget {
 }
 
 class _TextFieldDatePickerDemo1State extends State<TextFieldDatePickerDemo1> {
-  final TextEditingController _controller = TextEditingController();
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +76,7 @@ class _TextFieldDatePickerDemo1State extends State<TextFieldDatePickerDemo1> {
                       width: 0,
                       color: Colors.white,
                     )),
-                hintText: "Select Date",
+                hintText: 'Select Date',
                 hintStyle: TextStyle(
                     fontSize: displayWidth(context) * 0.04,
                     fontWeight: FontWeight.normal),

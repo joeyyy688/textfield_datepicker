@@ -26,7 +26,7 @@ class DatePicker {
     Locale? materialDatePickerLocale,
     bool Function(DateTime)? materialDatePickerSelectableDayPredicate,
   }) async {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
     switch (theme.platform) {
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:

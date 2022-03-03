@@ -6,21 +6,9 @@ These widgets gives you access to the various platform date and time pickers bas
 The date or time picked is shown in a Material TextFormField widget. 
 These three widgets earlier mentioned gives you access to most of Material TextFormField parameters allowing you to design your textfield based on your preference
 
-## Screenshots of how it work
+## Screenshots of how it works
 
-
-![Image1](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDateAndTimePicker(material).gif)
-
-![Image2](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDatePicker(ios).gif)
-
-![Image3](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDatePicker(material).gif)
-
-![Image4](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldDateTimePicker(ios).gif)
-
-![Image5](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldTimePicker(ios).gif)
-
-![Image6](https://github.com/joeyyy688/textfield_datePicker_screenshots/blob/main/gif/textfieldTimePicker(material).gif)
-
+For screenshots of how this package works, visit this [link](https://github.com/joeyyy688/textfield_datePicker_screenshots/tree/main/gif)
 
 
 *See [example](https://github.com/joeyyy688/textfield_datepicker/tree/master/example) for details of how this package works*
@@ -31,7 +19,7 @@ Add the textfield_datepicker package to your `pubspec.yml` file.
 
 ```yml
 dependencies:
-  textfield_datepicker: ^0.0.2
+  textfield_datepicker: ^0.1.0
 ```
 
 Import the package into your dart file
@@ -73,53 +61,6 @@ import 'package:textfield_datepicker/textfield_timePicker.dart';
 |`textfieldDatePickerMargin`|optional| Allows you to add some margin to the `TextfieldDatePicker`|
 |`textfieldDatePickerPadding`|optional| Allows you to add some padding to the `TextfieldDatePicker`|
 
-```dart
-            TextfieldDatePicker(
-              cupertinoDatePickerBackgroundColor: Colors.white,
-              cupertinoDatePickerMaximumDate: DateTime(2099),
-              cupertinoDatePickerMaximumYear: 2099,
-              cupertinoDatePickerMinimumYear: DateTime.now().year,
-              cupertinoDatePickerMinimumDate: DateTime.now(),
-              cupertinoDateInitialDateTime: DateTime.now(),
-              materialDatePickerFirstDate: DateTime.now(),
-              materialDatePickerInitialDate: DateTime.now(),
-              materialDatePickerLastDate: DateTime(2099),
-              preferredDateFormat: DateFormat('dd-MMMM-' 'yyyy'),
-              textfieldDatePickerController: _controller,
-              style: TextStyle(
-                fontSize: displayWidth(context) * 0.040,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              textCapitalization: TextCapitalization.sentences,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                helperStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.031,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white, 
-                    width: 0),
-                    borderRadius: BorderRadius.circular(2)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: const BorderSide(
-                      width: 0,
-                      color: Colors.white,
-                    )),
-                hintText: "Select Date",
-                hintStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.04,
-                    fontWeight: FontWeight.normal),
-                filled: true,
-                fillColor: Colors.grey[300],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-```
 
 ### TextfieldDateAndTimePicker
 
@@ -151,57 +92,6 @@ import 'package:textfield_datepicker/textfield_timePicker.dart';
 |`textfieldDateTimePickerMargin`|optional| Allows you to add some margin to the `TextfieldDateAndTimePicker`|
 |`textfieldDateTimePickerPadding`|optional| Allows you to add some padding to the `TextfieldDateAndTimePicker`|
 
-```dart
-            TextfieldDateAndTimePicker(
-              cupertinoDatePickerBackgroundColor: Colors.white,
-              cupertinoDatePickerMaximumDate: DateTime(2099),
-              cupertinoDatePickerMaximumYear: 2099,
-              cupertinoDatePickerMinimumYear: 1990,
-              cupertinoDatePickerMinimumDate: DateTime(1990),
-              cupertinoDateInitialDateTime: DateTime.now(),
-              materialDatePickerFirstDate: DateTime.now(),
-              materialDatePickerInitialDate: DateTime.now(),
-              materialDatePickerLastDate: DateTime(2099),
-              preferredDateFormat: DateFormat.yMMMEd(),
-              materialTimePickerUse24hrFormat: false,
-              cupertinoTimePickerMinuteInterval: 1,
-              cupertinoTimePickerUse24hFormat: false,
-              textfieldDateAndTimePickerController: _controller,
-              style: TextStyle(
-                fontSize: displayWidth(context) * 0.040,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              textCapitalization: TextCapitalization.sentences,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                helperStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.031,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white, 
-                    width: 0),
-                    borderRadius: BorderRadius.circular(2)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: const BorderSide(
-                      width: 0,
-                      color: Colors.white,
-                    )),
-                hintText: "Select Date",
-                hintStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.04,
-                    fontWeight: FontWeight.normal),
-                filled: true,
-                fillColor: Colors.grey[300],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              materialInitialTime: TimeOfDay.now(),
-            ),
-```
 
 ### TextfieldTimePicker
 
@@ -220,49 +110,6 @@ import 'package:textfield_datepicker/textfield_timePicker.dart';
 |`textfieldTimePickerMargin`|optional| Allows you to add some margin to the `TextfieldTimePicker`|
 |`textfieldTimePickerPadding`|optional| Allows you to add some padding to the `TextfieldTimePicker`|
 
-```dart
-            TextfieldTimePicker(
-              cupertinoDatePickerBackgroundColor: Colors.white,
-              cupertinoDateInitialDateTime: DateTime.now(),
-              materialTimePickerUse24hrFormat: false,
-              cupertinoTimePickerMinuteInterval: 1,
-              cupertinoTimePickerUse24hFormat: false,
-              textfieldDateAndTimePickerController: _controller,
-              style: TextStyle(
-                fontSize: displayWidth(context) * 0.040,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              textCapitalization: TextCapitalization.sentences,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                helperStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.031,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white, 
-                    width: 0),
-                    borderRadius: BorderRadius.circular(2)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: const BorderSide(
-                      width: 0,
-                      color: Colors.white,
-                    )),
-                hintText: "Select Time",
-                hintStyle: TextStyle(
-                    fontSize: displayWidth(context) * 0.04,
-                    fontWeight: FontWeight.normal),
-                filled: true,
-                fillColor: Colors.grey[300],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              materialInitialTime: TimeOfDay.now(),
-            ),
-```
 
 ## Example
 

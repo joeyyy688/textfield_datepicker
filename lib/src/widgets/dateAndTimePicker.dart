@@ -34,7 +34,7 @@ class DateAndTimePicker {
     DatePickerDateOrder? cupertinoDateOrder,
     Key? cupertinoDatePickerKey,
   }) async {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     /// Condition to check platform version and render widget
     ///
@@ -129,7 +129,7 @@ class DateAndTimePicker {
 
     /// Calling of [showTimePicker] widget
     ///
-    final TimeOfDay? timePicked = await showTimePicker(
+    final timePicked = await showTimePicker(
       context: context,
       initialTime: materialInitialTime,
       builder: materialTimePickerBuilder,

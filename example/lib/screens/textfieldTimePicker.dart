@@ -14,7 +14,7 @@ class TextFieldTimePicker extends StatefulWidget {
 }
 
 class _TextFieldTimePickerState extends State<TextFieldTimePicker> {
-  final TextEditingController _controller = TextEditingController();
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +69,7 @@ class _TextFieldTimePickerState extends State<TextFieldTimePicker> {
                       width: 0,
                       color: Colors.white,
                     )),
-                hintText: "Select Time",
+                hintText: 'Select Time',
                 hintStyle: TextStyle(
                     fontSize: displayWidth(context) * 0.04,
                     fontWeight: FontWeight.normal),
