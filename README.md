@@ -119,4 +119,4 @@ import 'package:textfield_datepicker/textfield_timePicker.dart';
 <a href="https://github.com/joeyyy688/textfield_datepicker/issues/new/choose" target="_blank"> Create an issue</a>
 
 ### Contact
-Reach me on Twitter <a href="https://twitter.com/edinjoey" target="_blank">@edinjoey</a>
+Contact me via email <a href="mailto:edinjoey@email.com" target="_blank">edinjoey@email.com</a>
