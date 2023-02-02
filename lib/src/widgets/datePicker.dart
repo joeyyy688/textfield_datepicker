@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -119,7 +121,7 @@ class DatePicker {
     /// ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoDatePicker(
           dateOrder: cupertinoDateOrder,

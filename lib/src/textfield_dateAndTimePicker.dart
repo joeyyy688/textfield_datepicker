@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, file_names
+
 library textfield_datepicker;
 
 import 'package:flutter/cupertino.dart';
@@ -171,7 +173,7 @@ class TextfieldDateAndTimePicker extends StatefulWidget {
   ///
   final EdgeInsetsGeometry? textfieldDateTimePickerPadding;
 
-  TextfieldDateAndTimePicker({
+  const TextfieldDateAndTimePicker({
     Key? key,
     required this.textfieldDateAndTimePickerController,
     this.autofillHints,
@@ -287,8 +289,7 @@ class _TextfieldDateAndTimePickerState
               return;
             } else {
               setState(() {
-                widget.textfieldDateAndTimePickerController.text =
-                    value == null ? "" : value;
+                widget.textfieldDateAndTimePickerController.text = value ?? '';
               });
             }
           });
@@ -316,8 +317,12 @@ class _TextfieldDateAndTimePickerState
         textAlignVertical: widget.textAlignVertical,
         textDirection: widget.textDirection,
         textInputAction: widget.textInputAction,
-        toolbarOptions: ToolbarOptions(
-            copy: true, cut: true, paste: false, selectAll: true),
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          cut: true,
+          paste: false,
+          selectAll: true,
+        ),
         enabled: true,
         autofocus: false,
         keyboardType: null,

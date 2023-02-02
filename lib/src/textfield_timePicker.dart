@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 library textfield_datepicker;
 
 import 'package:flutter/material.dart';
@@ -95,7 +97,7 @@ class TextfieldTimePicker extends StatefulWidget {
   ///
   final EdgeInsetsGeometry? textfieldTimePickerPadding;
 
-  TextfieldTimePicker({
+  const TextfieldTimePicker({
     Key? key,
     required this.textfieldDateAndTimePickerController,
     this.autofillHints,
@@ -177,8 +179,7 @@ class _TextfieldTimePickerState extends State<TextfieldTimePicker> {
               return;
             } else {
               setState(() {
-                widget.textfieldDateAndTimePickerController.text =
-                    value == null ? "" : value;
+                widget.textfieldDateAndTimePickerController.text = value ?? '';
               });
             }
 
@@ -208,8 +209,12 @@ class _TextfieldTimePickerState extends State<TextfieldTimePicker> {
         textAlignVertical: widget.textAlignVertical,
         textDirection: widget.textDirection,
         textInputAction: widget.textInputAction,
-        toolbarOptions: ToolbarOptions(
-            copy: true, cut: true, paste: false, selectAll: true),
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          cut: true,
+          paste: false,
+          selectAll: true,
+        ),
         enabled: true,
         autofocus: false,
         keyboardType: null,

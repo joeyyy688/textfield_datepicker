@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors
+
 library textfield_datepicker;
 
 import 'package:flutter/cupertino.dart';
@@ -146,7 +148,7 @@ class TextfieldDatePicker extends StatefulWidget {
   ///
   final EdgeInsetsGeometry? textfieldDatePickerPadding;
 
-  TextfieldDatePicker({
+  const TextfieldDatePicker({
     Key? key,
     required this.textfieldDatePickerController,
     this.autofillHints,
@@ -245,8 +247,7 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
               return;
             } else {
               setState(() {
-                widget.textfieldDatePickerController.text =
-                    value == null ? "" : value;
+                widget.textfieldDatePickerController.text = value ?? '';
               });
             }
 
@@ -277,7 +278,11 @@ class _TextfieldDatePickerState extends State<TextfieldDatePicker> {
         textDirection: widget.textDirection,
         textInputAction: widget.textInputAction,
         toolbarOptions: ToolbarOptions(
-            copy: true, cut: true, paste: false, selectAll: true),
+          copy: true,
+          cut: true,
+          paste: false,
+          selectAll: true,
+        ),
         enabled: true,
         autofocus: false,
         keyboardType: null,

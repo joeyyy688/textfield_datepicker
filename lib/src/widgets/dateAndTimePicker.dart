@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -161,10 +163,10 @@ class DateAndTimePicker {
 
       _minute = timePicked.minute.toString().padLeft(2, '0');
 
-      _time = _hour! + ':' + _minute!;
+      _time = '${_hour!}:${_minute!}';
     }
 
-    _dateAndTime = _date! + ' ' + _time + ' ' + _period;
+    _dateAndTime = '${_date!} $_time $_period';
 
     return _dateAndTime;
   }
@@ -188,7 +190,7 @@ class DateAndTimePicker {
     /// ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoDatePicker(
           dateOrder: cupertinoDateOrder,
@@ -234,9 +236,9 @@ class DateAndTimePicker {
 
             _minute = _selectedDate!.minute.toString().padLeft(2, '0');
 
-            _time = _hour! + ':' + _minute!;
+            _time = '${_hour!}:${_minute!}';
 
-            _dateAndTime = _date! + ' ' + _time + ' ' + _period;
+            _dateAndTime = '${_date!} $_time $_period';
           },
           initialDateTime: DateTime(
               cupertinoDateInitialDateTime!.year,

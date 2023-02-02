@@ -96,10 +96,10 @@ class TimePicker {
 
       _minute = timePicked.minute.toString().padLeft(2, '0');
 
-      _selectedTime = _hour! + ':' + _minute!;
+      _selectedTime = '${_hour!}:${_minute!}';
     }
 
-    _time = _selectedTime + ' ' + _period;
+    _time = '$_selectedTime $_period';
 
     return _time;
   }
@@ -117,7 +117,7 @@ class TimePicker {
     /// ignore: unused_local_variable
     String? picked = await Utils().showSheet(
       context,
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoDatePicker(
           backgroundColor: cupertinoDatePickerBackgroundColor,
@@ -153,9 +153,9 @@ class TimePicker {
 
             _minute = _selectedDate!.minute.toString().padLeft(2, '0');
 
-            _selectedTime = _hour! + ':' + _minute!;
+            _selectedTime = '${_hour!}:${_minute!}';
 
-            _time = _selectedTime + ' ' + _period;
+            _time = '$_selectedTime $_period';
           },
           initialDateTime: DateTime(
               cupertinoDateInitialDateTime!.year,
